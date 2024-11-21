@@ -5,6 +5,8 @@ package api.easy_leaves.model;
 
 import java.util.Date;
 
+import api.easy_leaves.enums.Statut;
+import api.easy_leaves.enums.TypeAbsence;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,10 +34,10 @@ public class Absence {
 	private Date dateFin;
 	
 	/** type */
-	private int type;
+	private TypeAbsence type;
 	
 	/** statut */
-	private int statut;
+	private Statut statut;
 	
 	/** motif */
 	private String motif;
@@ -45,21 +47,26 @@ public class Absence {
 	@JoinColumn(name = "absenceUtilisateur")
 	private Utilisateur utilisateur;
 	
-	
+
 	/** Constructeur
+	 * @param idAbsence
 	 * @param dateDebut
 	 * @param dateFin
 	 * @param type
 	 * @param statut
 	 * @param motif
+	 * @param utilisateur
 	 */
-	public Absence(Date dateDebut, Date dateFin, int type, int statut, String motif) {
+	public Absence(int idAbsence, Date dateDebut, Date dateFin, TypeAbsence type, Statut statut, String motif,
+			Utilisateur utilisateur) {
 		super();
+		this.idAbsence = idAbsence;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.type = type;
 		this.statut = statut;
 		this.motif = motif;
+		this.utilisateur = utilisateur;
 	}
 
 	/** Constructeur
@@ -114,28 +121,28 @@ public class Absence {
 	/** Getter
 	 * @return the type
 	 */
-	public int getType() {
+	public TypeAbsence getType() {
 		return type;
 	}
 
 	/** Setter
 	 * @param type the type to set
 	 */
-	public void setType(int type) {
+	public void setType(TypeAbsence type) {
 		this.type = type;
 	}
 
 	/** Getter
 	 * @return the statut
 	 */
-	public int getStatut() {
+	public Statut getStatut() {
 		return statut;
 	}
 
 	/** Setter
 	 * @param statut the statut to set
 	 */
-	public void setStatut(int statut) {
+	public void setStatut(Statut statut) {
 		this.statut = statut;
 	}
 

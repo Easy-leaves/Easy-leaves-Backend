@@ -6,6 +6,7 @@ package api.easy_leaves.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.easy_leaves.enums.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Utilisateur {
 	private String email;
 	
 	/** role */
-	private int role;
+	private Role role;
 	
     /** compteur */
 	@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
@@ -59,13 +60,20 @@ public class Utilisateur {
 	 * @param prenom
 	 * @param email
 	 * @param role
+	 * @param compteurUtilisateur
+	 * @param departement
+	 * @param absenceUtilisateur
 	 */
-	public Utilisateur(String nom, String prenom, String email, int role) {
+	public Utilisateur(String nom, String prenom, String email, Role role, List<Compteur> compteurUtilisateur,
+			Departement departement, List<Absence> absenceUtilisateur) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.role = role;
+		this.compteurUtilisateur = compteurUtilisateur;
+		this.departement = departement;
+		this.absenceUtilisateur = absenceUtilisateur;
 	}
 
 
@@ -142,22 +150,6 @@ public class Utilisateur {
 
 
 	/** Getter
-	 * @return the role
-	 */
-	public int getRole() {
-		return role;
-	}
-
-
-	/** Setter
-	 * @param role the role to set
-	 */
-	public void setRole(int role) {
-		this.role = role;
-	}
-
-
-	/** Getter
 	 * @return the compteurUtilisateur
 	 */
 	public List<Compteur> getCompteurUtilisateur() {
@@ -202,6 +194,22 @@ public class Utilisateur {
 	 */
 	public void setAbsenceUtilisateur(List<Absence> absenceUtilisateur) {
 		this.absenceUtilisateur = absenceUtilisateur;
+	}
+
+
+	/** Getter
+	 * @return the role
+	 */
+	public Role getRole() {
+		return role;
+	}
+
+
+	/** Setter
+	 * @param role the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	
