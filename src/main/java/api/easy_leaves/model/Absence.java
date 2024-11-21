@@ -3,12 +3,18 @@
  */
 package api.easy_leaves.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /** 
@@ -18,15 +24,30 @@ import jakarta.persistence.Table;
 @Table(name = "ABSENCE")
 public class Absence {
 
+	/** idAbsence */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAbsence;
 	
+	/** dateDebut */
 	private Date dateDebut;
+	
+	/** dateFin */
 	private Date dateFin;
+	
+	/** type */
 	private int type;
+	
+	/** statut */
 	private int statut;
+	
+	/** motif */
 	private String motif;
+	
+	/** utilisateursAbsences */	
+	@ManyToOne
+	@JoinColumn(name = "absenceUtilisateur")
+	private Utilisateur utilisateur;
 	
 	
 	/** Constructeur
@@ -135,6 +156,21 @@ public class Absence {
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
+
+	/** Getter
+	 * @return the utilisateur
+	 */
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	/** Setter
+	 * @param utilisateur the utilisateur to set
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
 	
 	
 }

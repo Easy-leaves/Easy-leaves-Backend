@@ -3,10 +3,17 @@
  */
 package api.easy_leaves.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /** 
@@ -16,14 +23,35 @@ import jakarta.persistence.Table;
 @Table(name = "UTILISATEUR")
 public class Utilisateur {
 	
+	/** idUtilisateur */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUtilisateur;
 	
+	/** nom */
 	private String nom;
+	
+	/** prenom */
 	private String prenom;
+	
+	/** email */
 	private String email;
+	
+	/** role */
 	private int role;
+	
+    /** compteur */
+	@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Compteur> compteurUtilisateur = new ArrayList<>();
+    
+    /** departements */
+	@ManyToOne
+	@JoinColumn(name = "departementUtilisateur")
+	private Departement departement;
+	
+    /** absences */
+	@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Absence> absenceUtilisateur = new ArrayList<>();
 	
 	
 	/** Constructeur
@@ -127,6 +155,54 @@ public class Utilisateur {
 	public void setRole(int role) {
 		this.role = role;
 	}
-	
+
+
+	/** Getter
+	 * @return the compteurUtilisateur
+	 */
+	public List<Compteur> getCompteurUtilisateur() {
+		return compteurUtilisateur;
+	}
+
+
+	/** Setter
+	 * @param compteurUtilisateur the compteurUtilisateur to set
+	 */
+	public void setCompteurUtilisateur(List<Compteur> compteurUtilisateur) {
+		this.compteurUtilisateur = compteurUtilisateur;
+	}
+
+
+	/** Getter
+	 * @return the departement
+	 */
+	public Departement getDepartement() {
+		return departement;
+	}
+
+
+	/** Setter
+	 * @param departement the departement to set
+	 */
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
+
+	/** Getter
+	 * @return the absenceUtilisateur
+	 */
+	public List<Absence> getAbsenceUtilisateur() {
+		return absenceUtilisateur;
+	}
+
+
+	/** Setter
+	 * @param absenceUtilisateur the absenceUtilisateur to set
+	 */
+	public void setAbsenceUtilisateur(List<Absence> absenceUtilisateur) {
+		this.absenceUtilisateur = absenceUtilisateur;
+	}
+
 	
 }
