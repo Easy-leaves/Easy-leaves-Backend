@@ -1,6 +1,3 @@
-/**
- *
- */
 package api.easy_leaves.model;
 
 import java.util.Date;
@@ -173,7 +170,4 @@ public class Absence {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
-	
-
 }

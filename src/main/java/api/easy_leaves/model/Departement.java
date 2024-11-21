@@ -1,6 +1,3 @@
-/**
- *
- */
 package api.easy_leaves.model;
 
 import java.util.ArrayList;
@@ -30,10 +27,9 @@ public class Departement {
 	private String libelle;
 	
 	/** utilisateur */
-	@OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
-	private List<Utilisateur> utilisateurs = new ArrayList<>();
-	
-	
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<Utilisateur> utilisateurs = new ArrayList<>();
+
 	/** Constructeur
 	 * @param libelle
 	 */
@@ -90,6 +86,4 @@ public class Departement {
 	public void setUtilisateurs(List<Utilisateur> utilisateurs) {
 		this.utilisateurs = utilisateurs;
 	}
-	
-
 }
