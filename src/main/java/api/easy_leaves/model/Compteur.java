@@ -3,10 +3,17 @@
  */
 package api.easy_leaves.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /** 
@@ -15,13 +22,22 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "COMPTEUR")
 public class Compteur {
-
+	
+	/** idCompteur */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCompteur;
 	
+	/** annee */
 	private int annee;
+	
+	/** typeCompteur */
 	private int typeCompteur;
+	
+	/** utilisateursCompteurs */
+	@ManyToOne
+	@JoinColumn(name = "compteurUtilisateur")
+	private Utilisateur utilisateur;
 
 
 	/** Constructeur
@@ -89,5 +105,22 @@ public class Compteur {
 	public void setTypeCompteur(int typeCompteur) {
 		this.typeCompteur = typeCompteur;
 	}
-	
+
+
+	/** Getter
+	 * @return the utilisateur
+	 */
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	/** Setter
+	 * @param utilisateur the utilisateur to set
+	 */
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+
 }

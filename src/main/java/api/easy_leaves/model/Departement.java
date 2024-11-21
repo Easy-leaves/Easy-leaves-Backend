@@ -3,10 +3,17 @@
  */
 package api.easy_leaves.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /** 
@@ -16,11 +23,18 @@ import jakarta.persistence.Table;
 @Table(name = "DEPARTEMENT")
 public class Departement {
 
+	/** idDepartement */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDepartement;
 	
+	/** libelle */
 	private String libelle;
+	
+	/** utilisateur */
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<Utilisateur> utilisateurs = new ArrayList<>();
+
 
 	/** Constructeur
 	 * @param libelle
@@ -64,6 +78,20 @@ public class Departement {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	
+
+	/** Getter
+	 * @return the utilisateurs
+	 */
+	public List<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
+	}
+
+	/** Setter
+	 * @param utilisateurs the utilisateurs to set
+	 */
+	public void setUtilisateurs(List<Utilisateur> utilisateurs) {
+		this.utilisateurs = utilisateurs;
+	}
+
 	
 }
