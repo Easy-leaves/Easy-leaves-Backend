@@ -3,6 +3,7 @@
  */
 package api.easy_leaves.model;
 
+import api.easy_leaves.enums.TypeCompteur;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,25 +28,28 @@ public class Compteur {
 	private int annee;
 	
 	/** typeCompteur */
-	private int typeCompteur;
+	private TypeCompteur typeCompteur;
 	
 	/** utilisateursCompteurs */
 	@ManyToOne
 	@JoinColumn(name = "compteurUtilisateur")
 	private Utilisateur utilisateur;
 
-
+	
+	
 	/** Constructeur
 	 * @param annee
 	 * @param typeCompteur
+	 * @param utilisateur
 	 */
-	public Compteur(int annee, int typeCompteur) {
+	public Compteur(int annee, TypeCompteur typeCompteur, Utilisateur utilisateur) {
 		super();
 		this.annee = annee;
 		this.typeCompteur = typeCompteur;
+		this.utilisateur = utilisateur;
 	}
-	
-	
+
+
 	/** Constructeur
 	 * 
 	 */
@@ -89,7 +93,7 @@ public class Compteur {
 	/** Getter
 	 * @return the typeCompteur
 	 */
-	public int getTypeCompteur() {
+	public TypeCompteur getTypeCompteur() {
 		return typeCompteur;
 	}
 
@@ -97,7 +101,7 @@ public class Compteur {
 	/** Setter
 	 * @param typeCompteur the typeCompteur to set
 	 */
-	public void setTypeCompteur(int typeCompteur) {
+	public void setTypeCompteur(TypeCompteur typeCompteur) {
 		this.typeCompteur = typeCompteur;
 	}
 
