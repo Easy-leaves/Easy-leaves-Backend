@@ -22,7 +22,7 @@ public class Compteur {
 	/** idCompteur */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCompteur;
+	private int idCompteur;
 	
 	/** annee */
 	private int annee;
@@ -34,7 +34,7 @@ public class Compteur {
 	@ManyToOne
 	@JoinColumn(name = "compteurUtilisateur")
 	private Utilisateur utilisateur;
-
+	
 	
 	
 	/** Constructeur
@@ -48,78 +48,78 @@ public class Compteur {
 		this.typeCompteur = typeCompteur;
 		this.utilisateur = utilisateur;
 	}
-
-
+	
+	
 	/** Constructeur
 	 * 
 	 */
 	public Compteur() {
 		super();
 	}
-
-
+	
+	
 	/** Getter
 	 * @return the idCompteur
 	 */
 	public int getIdCompteur() {
 		return idCompteur;
 	}
-
-
+	
+	
 	/** Setter
 	 * @param idCompteur the idCompteur to set
 	 */
 	public void setIdCompteur(int idCompteur) {
 		this.idCompteur = idCompteur;
 	}
-
-
+	
+	
 	/** Getter
 	 * @return the annee
 	 */
 	public int getAnnee() {
 		return annee;
 	}
-
-
+	
+	
 	/** Setter
 	 * @param annee the annee to set
 	 */
 	public void setAnnee(int annee) {
 		this.annee = annee;
 	}
-
-
+	
+	
 	/** Getter
 	 * @return the typeCompteur
 	 */
 	public TypeCompteur getTypeCompteur() {
 		return typeCompteur;
 	}
-
-
+	
+	
 	/** Setter
 	 * @param typeCompteur the typeCompteur to set
 	 */
 	public void setTypeCompteur(TypeCompteur typeCompteur) {
 		this.typeCompteur = typeCompteur;
 	}
-
-
+	
+	
 	/** Getter
 	 * @return the utilisateur
 	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
-
-
+	
+	
 	/** Setter
 	 * @param utilisateur the utilisateur to set
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-
+	
 
 }

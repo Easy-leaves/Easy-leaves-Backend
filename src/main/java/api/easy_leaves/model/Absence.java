@@ -21,11 +21,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ABSENCE")
 public class Absence {
-
+	
 	/** idAbsence */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idAbsence;
+	private int idAbsence;
 	
 	/** dateDebut */
 	private Date dateDebut;
@@ -47,7 +47,7 @@ public class Absence {
 	@JoinColumn(name = "absenceUtilisateur")
 	private Utilisateur utilisateur;
 	
-
+	
 	/** Constructeur
 	 * @param idAbsence
 	 * @param dateDebut
@@ -68,112 +68,112 @@ public class Absence {
 		this.motif = motif;
 		this.utilisateur = utilisateur;
 	}
-
+	
 	/** Constructeur
 	 * 
 	 */
 	public Absence() {
 		super();
 	}
-
+	
 	/** Getter
 	 * @return the idAbsence
 	 */
 	public int getIdAbsence() {
 		return idAbsence;
 	}
-
+	
 	/** Setter
 	 * @param idAbsence the idAbsence to set
 	 */
 	public void setIdAbsence(int idAbsence) {
 		this.idAbsence = idAbsence;
 	}
-
+	
 	/** Getter
 	 * @return the dateDebut
 	 */
 	public Date getDateDebut() {
 		return dateDebut;
 	}
-
+	
 	/** Setter
 	 * @param dateDebut the dateDebut to set
 	 */
 	public void setDateDebut(Date dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-
+	
 	/** Getter
 	 * @return the dateFin
 	 */
 	public Date getDateFin() {
 		return dateFin;
 	}
-
+	
 	/** Setter
 	 * @param dateFin the dateFin to set
 	 */
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-
+	
 	/** Getter
 	 * @return the type
 	 */
 	public TypeAbsence getType() {
 		return type;
 	}
-
+	
 	/** Setter
 	 * @param type the type to set
 	 */
 	public void setType(TypeAbsence type) {
 		this.type = type;
 	}
-
+	
 	/** Getter
 	 * @return the statut
 	 */
 	public Statut getStatut() {
 		return statut;
 	}
-
+	
 	/** Setter
 	 * @param statut the statut to set
 	 */
 	public void setStatut(Statut statut) {
 		this.statut = statut;
 	}
-
+	
 	/** Getter
 	 * @return the motif
 	 */
 	public String getMotif() {
 		return motif;
 	}
-
+	
 	/** Setter
 	 * @param motif the motif to set
 	 */
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
-
+	
 	/** Getter
 	 * @return the utilisateur
 	 */
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
-
+	
 	/** Setter
 	 * @param utilisateur the utilisateur to set
 	 */
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	
+	
 
-	
-	
 }
