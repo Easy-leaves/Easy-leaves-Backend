@@ -11,7 +11,7 @@ public class DepartementDTO {
 	/** 
 	 * The departement identifier. 
 	 */
-    private int id;
+	private int id;
 	
 	/** 
 	 * The libelle.
@@ -21,7 +21,7 @@ public class DepartementDTO {
 	/**
 	 * The list of user ids linked to this departement. 
 	 */
-    private List<Integer> utilisateurIds = new ArrayList<Integer>();
+	private List<Integer> utilisateurIds = new ArrayList<Integer>();
 
 	/** 
 	 * Constructor

@@ -13,7 +13,7 @@ public class AbsenceDTO {
 	/** 
 	 * The absence identifier.
 	 */
-    private int id;
+	private int id;
 	
 	/**
 	 * The start date of an absence.

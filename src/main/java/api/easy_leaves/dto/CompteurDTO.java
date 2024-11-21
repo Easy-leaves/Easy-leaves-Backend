@@ -10,7 +10,7 @@ public class CompteurDTO {
 	/**
 	 * The identifier.
 	 */
-    private int id;
+	private int id;
 	
 	/**
 	 * Get the year of the compteur.

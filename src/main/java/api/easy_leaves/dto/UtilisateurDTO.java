@@ -13,7 +13,7 @@ public class UtilisateurDTO {
 	/** 
 	 * The user identifier. 
 	 */
-    private int id;
+	private int id;
 	
 	/** 
 	 * The last name of the user. 
@@ -35,20 +35,20 @@ public class UtilisateurDTO {
 	 */
 	private Role role;
 	
-    /**
-     * The list of compteur identifier linked to this user.
-     */
-    private List<Integer> compteurIds = new ArrayList<>();
-    
-    /**
-     * The departement identifier linked to this user.
-     */
+	/**
+	 * The list of compteur identifier linked to this user.
+	 */
+	private List<Integer> compteurIds = new ArrayList<>();
+	
+	/**
+	 * The departement identifier linked to this user.
+	 */
 	private int departementId;
 	
-    /**
-     * The list of absence identifier linked to this user.
-     */
-    private List<Integer> absenceIds = new ArrayList<>();
+	/**
+	 * The list of absence identifier linked to this user.
+	 */
+	private List<Integer> absenceIds = new ArrayList<>();
 	
 	/**
 	 * Constructor
