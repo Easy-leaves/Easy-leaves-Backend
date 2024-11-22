@@ -10,4 +10,11 @@ import api.easy_leaves.model.Departement;
  */
 @Repository
 public interface DepartementRepository extends JpaRepository<Departement, Integer> {
+	
+	/**
+	 * Trouver un département par son libellé
+	 * @param libelle
+	 * @return
+	 */
+	Departement findByLibelle(String libelle);
 }

@@ -1,5 +1,6 @@
 package api.easy_leaves.services;
 
+
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.repository.UtilisateurRepository;
 
@@ -26,6 +27,7 @@ public class UtilisateurService {
 	 * @return Liste des utilisateurs disponibles.
 	 */
 	public List<Utilisateur> getAllUtilisateurs() {
+		
 	    return utilisateurRepository.findAll();
 	}
 	
@@ -59,12 +61,12 @@ public class UtilisateurService {
 	 * @throws RuntimeException Si l'utilisateur à mettre à jour n'existe pas.
 	 */
 	public Utilisateur updateUtilisateur(int id, Utilisateur utilisateurDetails) {
-	    Utilisateur utilisateur = getUtilisateurById(id);
-	    utilisateur.setNom(utilisateurDetails.getNom());
-	    utilisateur.setPrenom(utilisateurDetails.getPrenom());
-	    utilisateur.setEmail(utilisateurDetails.getEmail());
-	    utilisateur.setRole(utilisateurDetails.getRole());
-	    return utilisateurRepository.save(utilisateur);
+		Utilisateur utilisateur = getUtilisateurById(id);
+		utilisateur.setNom(utilisateurDetails.getNom());
+		utilisateur.setPrenom(utilisateurDetails.getPrenom());
+		utilisateur.setEmail(utilisateurDetails.getEmail());
+		utilisateur.setRole(utilisateurDetails.getRole());
+		return utilisateurRepository.save(utilisateur);
 	}
 	
 	/**

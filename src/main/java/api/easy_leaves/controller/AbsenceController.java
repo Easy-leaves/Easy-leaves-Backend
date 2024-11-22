@@ -1,6 +1,7 @@
 package api.easy_leaves.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.services.AbsenceService;
 
@@ -36,8 +38,10 @@ public class AbsenceController {
 	 * @return Liste des absences
 	 */
 	@GetMapping
-	public List<Absence> obtenirToutesLesAbsences() {
-	    return absenceService.getAllAbsences();
+	public List<AbsenceDTO> obtenirToutesLesAbsences() {
+		return absenceService.getAllAbsences().stream()
+				.map(AbsenceDTO::convertToDTO)
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -47,9 +51,8 @@ public class AbsenceController {
 	 * @return Absence correspondant à l'ID
 	 */
 	@GetMapping("/{id}")
-	public Absence obtenirAbsenceParId(@PathVariable int id) {
-	    Absence absence = absenceService.getAbsenceById(id);
-	    return absence;
+	public AbsenceDTO obtenirAbsenceParId(@PathVariable int id) {
+		return AbsenceDTO.convertToDTO(absenceService.getAbsenceById(id));
 	}
 	
 	/**

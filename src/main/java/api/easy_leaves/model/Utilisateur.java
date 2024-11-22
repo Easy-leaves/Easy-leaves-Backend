@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /** 
  * @author Nicolas LE LANNIER
@@ -45,6 +46,7 @@ public class Utilisateur {
 	/** departements */
 	@ManyToOne
 	@JoinColumn(name = "departementUtilisateur")
+	@NotNull
 	private Departement departement;
 	
 	/** absences */

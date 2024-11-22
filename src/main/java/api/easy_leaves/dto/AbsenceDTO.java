@@ -4,6 +4,7 @@ import java.util.Date;
 
 import api.easy_leaves.enums.Statut;
 import api.easy_leaves.enums.TypeAbsence;
+import api.easy_leaves.model.Absence;
 
 /**
  * Class which defines an absence.
@@ -55,9 +56,7 @@ public class AbsenceDTO {
 	 * @param motif
 	 * @param utilisateur
 	 */
-	public AbsenceDTO(int id, Date dateDebut, Date dateFin,
-			TypeAbsence type, Statut statut, String motif,
-			int utilisateurId) {
+	public AbsenceDTO(int id, Date dateDebut, Date dateFin, TypeAbsence type, Statut statut, String motif, int utilisateurId) {
 		this.id = id;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
@@ -183,6 +182,23 @@ public class AbsenceDTO {
 	 */
 	public void setUtilisateurId(int utilisateurId) {
 		this.utilisateurId = utilisateurId;
+	}
+	
+	/**
+	 * Convert a Absence entity into a AbsenceDTO.
+	 * @param absence L'objet Absence à convertir
+	 * @return L'objet AbsenceDTO
+	 */
+	static public AbsenceDTO convertToDTO(Absence absence) {
+		return new AbsenceDTO(
+			absence.getIdAbsence(),
+			absence.getDateDebut(),
+			absence.getDateFin(),
+			absence.getType(),
+			absence.getStatut(),
+			absence.getMotif(),
+			absence.getUtilisateur() != null ? absence.getUtilisateur().getIdUtilisateur() : 0
+		);
 	}
 }
 	

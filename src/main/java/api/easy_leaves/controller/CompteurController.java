@@ -1,6 +1,7 @@
 package api.easy_leaves.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.easy_leaves.dto.CompteurDTO;
 import api.easy_leaves.model.Compteur;
 import api.easy_leaves.services.CompteurService;
 
@@ -36,8 +38,10 @@ public class CompteurController {
 	 * @return Liste des compteurs
 	 */
 	@GetMapping
-	public List<Compteur> obtenirTousLesCompteurs() {
-	    return compteurService.getAllCompteurs();
+	public List<CompteurDTO> obtenirTousLesCompteurs() {
+		return compteurService.getAllCompteurs().stream()
+				.map(CompteurDTO::convertToDTO)
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -47,9 +51,8 @@ public class CompteurController {
 	 * @return Compteur correspondant à l'ID
 	 */
 	@GetMapping("/{id}")
-	public Compteur obtenirCompteurParId(@PathVariable int id) {
-	    Compteur compteur = compteurService.getCompteurById(id);
-	    return compteur;
+	public CompteurDTO obtenirCompteurParId(@PathVariable int id) {
+	    return CompteurDTO.convertToDTO(compteurService.getCompteurById(id));
 	}
 	
 	/**

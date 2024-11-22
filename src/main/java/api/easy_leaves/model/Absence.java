@@ -4,6 +4,7 @@ import java.util.Date;
 
 import api.easy_leaves.enums.Statut;
 import api.easy_leaves.enums.TypeAbsence;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,6 +43,7 @@ public class Absence {
 	/** utilisateursAbsences */	
 	@ManyToOne
 	@JoinColumn(name = "absenceUtilisateur")
+	@Nullable
 	private Utilisateur utilisateur;
 	
 	

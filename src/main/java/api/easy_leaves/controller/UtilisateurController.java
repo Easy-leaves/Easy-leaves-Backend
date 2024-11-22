@@ -1,6 +1,7 @@
 package api.easy_leaves.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.easy_leaves.dto.UtilisateurDTO;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.UtilisateurService;
 
@@ -36,8 +38,10 @@ public class UtilisateurController {
 	 * @return Liste des utilisateurs
 	 */
 	@GetMapping
-	public List<Utilisateur> obtenirTousLesUtilisateurs() {
-	    return utilisateurService.getAllUtilisateurs();
+	public List<UtilisateurDTO> obtenirTousLesUtilisateurs() {
+	    return utilisateurService.getAllUtilisateurs().stream()
+	    		.map(UtilisateurDTO::convertToDTO)
+	    		.collect(Collectors.toList());
 	}
 	
 	/**
@@ -47,9 +51,8 @@ public class UtilisateurController {
 	 * @return Utilisateur correspondant à l'ID
 	 */
 	@GetMapping("/{id}")
-	public Utilisateur obtenirUtilisateurParId(@PathVariable int id) {
-	    Utilisateur utilisateur = utilisateurService.getUtilisateurById(id);
-	    return utilisateur;
+	public UtilisateurDTO obtenirUtilisateurParId(@PathVariable int id) {
+	    return UtilisateurDTO.convertToDTO(utilisateurService.getUtilisateurById(id));
 	}
 	
 	/**
