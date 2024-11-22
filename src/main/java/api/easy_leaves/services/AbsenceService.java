@@ -1,6 +1,5 @@
 package api.easy_leaves.services;
 
-import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.repository.AbsenceRepository;
 

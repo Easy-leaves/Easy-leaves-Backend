@@ -5,7 +5,6 @@ import java.util.List;
 
 import api.easy_leaves.enums.Role;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

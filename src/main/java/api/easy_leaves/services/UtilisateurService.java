@@ -1,15 +1,12 @@
 package api.easy_leaves.services;
 
-import api.easy_leaves.dto.UtilisateurDTO;
-import api.easy_leaves.model.Absence;
-import api.easy_leaves.model.Compteur;
+
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.repository.UtilisateurRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

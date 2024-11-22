@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.easy_leaves.dto.UtilisateurDTO;
-import api.easy_leaves.model.Absence;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.UtilisateurService;
 
