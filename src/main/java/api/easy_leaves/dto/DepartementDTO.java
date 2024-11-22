@@ -30,9 +30,9 @@ public class DepartementDTO {
 	 * @param libelle
 	 */
 	public DepartementDTO(int id, String libelle, List<Integer> utilisateurIds) {
-        this.id = id;
-        this.libelle = libelle;
-        this.utilisateurIds = utilisateurIds;
+		this.id = id;
+		this.libelle = libelle;
+		this.utilisateurIds = utilisateurIds;
 	}
 
 	/**
