@@ -17,13 +17,13 @@ public class IncrementationTache {
 	private AbsenceRepository absenceRepository;
 	
 	/**
-	 * Tâche planifiée pour changer le statut des absences de INITIALE à EN_ATTENTE
+	 * Tâche planifiée pour changer le statut des absences de INITIALE à EN_ATTENTE_VALIDATION
 	 * Exécutée tous les jours à minuit.
 	 * Pour vérifier le fonctionnement mettre "0 * * * * *" qui met à jour toutes les minutes
 	 */
 	@Scheduled(cron = "0 0 0 * * *")
 	public void updateAbsenceStatut() {
-		List<Absence> absences = absenceRepository.findByStatut(Statut.INITIAL);
+		List<Absence> absences = absenceRepository.findByStatut(Statut.INITIALE);
 		
 		for (Absence absence : absences) {
 		    absence.setStatut(Statut.EN_ATTENTE_VALIDATION);
