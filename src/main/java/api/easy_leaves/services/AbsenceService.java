@@ -1,5 +1,6 @@
 package api.easy_leaves.services;
 
+import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.repository.AbsenceRepository;
 
@@ -59,13 +60,13 @@ public class AbsenceService {
 	 * @throws RuntimeException Si l'absence à mettre à jour n'existe pas.
 	 */
 	public Absence updateAbsence(int id, Absence absenceDetails) {
-	    Absence absence = getAbsenceById(id);
-	    absence.setDateDebut(absenceDetails.getDateDebut());
-	    absence.setDateFin(absenceDetails.getDateFin());
-	    absence.setType(absenceDetails.getType());
-	    absence.setStatut(absenceDetails.getStatut());
-	    absence.setMotif(absenceDetails.getMotif());
-	    return absenceRepository.save(absence);
+		Absence absence = getAbsenceById(id);
+		absence.setDateDebut(absenceDetails.getDateDebut());
+		absence.setDateFin(absenceDetails.getDateFin());
+		absence.setType(absenceDetails.getType());
+		absence.setStatut(absenceDetails.getStatut());
+		absence.setMotif(absenceDetails.getMotif());
+		return absenceRepository.save(absence);
 	}
 	
 	/**

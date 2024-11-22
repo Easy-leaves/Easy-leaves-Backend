@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /** 
  * @author Nicolas LE LANNIER
@@ -30,6 +31,7 @@ public class Compteur {
 	/** utilisateursCompteurs */
 	@ManyToOne
 	@JoinColumn(name = "compteurUtilisateur")
+	@NotNull
 	private Utilisateur utilisateur;	
 	
 	/** Constructeur

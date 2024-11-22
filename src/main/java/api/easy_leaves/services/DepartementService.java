@@ -59,9 +59,9 @@ public class DepartementService {
 	 * @throws RuntimeException Si le département à mettre à jour n'existe pas.
 	 */
 	public Departement updateDepartement(int id, Departement departementDetails) {
-	    Departement departement = getDepartementById(id);
-	    departement.setLibelle(departementDetails.getLibelle());
-	    return departementRepository.save(departement);
+		Departement departement = getDepartementById(id);
+		departement.setLibelle(departementDetails.getLibelle());
+		return departementRepository.save(departement);
 	}
 	
 	/**

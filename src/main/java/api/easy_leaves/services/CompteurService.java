@@ -59,10 +59,10 @@ public class CompteurService {
 	 * @throws RuntimeException Si le compteur à mettre à jour n'existe pas.
 	 */
 	public Compteur updateCompteur(int id, Compteur compteurDetails) {
-	    Compteur compteur = getCompteurById(id);
-	    compteur.setAnnee(compteurDetails.getAnnee());
-	    compteur.setTypeCompteur(compteurDetails.getTypeCompteur());
-	    return compteurRepository.save(compteur);
+		Compteur compteur = getCompteurById(id);
+		compteur.setAnnee(compteurDetails.getAnnee());
+		compteur.setTypeCompteur(compteurDetails.getTypeCompteur());
+		return compteurRepository.save(compteur);
 	}
 	
 	/**

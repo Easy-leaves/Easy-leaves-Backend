@@ -1,6 +1,7 @@
 package api.easy_leaves.dto;
 
 import api.easy_leaves.enums.TypeCompteur;
+import api.easy_leaves.model.Compteur;
 
 /**
  * Class which defines a compteur. 
@@ -33,7 +34,8 @@ public class CompteurDTO {
 	 * @param typeCompteur
 	 * @param utilisateur
 	 */
-	public CompteurDTO(int annee, TypeCompteur type, int utilisateurId) {
+	public CompteurDTO(int idCompteur, int annee, TypeCompteur type, int utilisateurId) {
+		this.id = idCompteur;
 		this.annee = annee;
 		this.type = type;
 		this.utilisateurId = utilisateurId;
@@ -107,5 +109,19 @@ public class CompteurDTO {
 	 */
 	public void setUtilisateur(int utilisateurId) {
 		this.utilisateurId = utilisateurId;
+	}
+	
+	/**
+	 * Convert a Compteur entity into a CompteurDTO.
+	 * @param compteur
+	 * @return
+	 */
+	public static CompteurDTO convertToDTO(Compteur compteur) {
+		return new CompteurDTO(
+			compteur.getIdCompteur(),
+			compteur.getAnnee(),
+			compteur.getTypeCompteur(),
+			compteur.getUtilisateur() != null ? compteur.getUtilisateur().getIdUtilisateur() : null
+		);
 	}
 }

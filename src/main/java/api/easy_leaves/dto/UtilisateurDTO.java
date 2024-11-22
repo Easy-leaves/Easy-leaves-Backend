@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import api.easy_leaves.enums.Role;
+import api.easy_leaves.model.Absence;
+import api.easy_leaves.model.Compteur;
+import api.easy_leaves.model.Utilisateur;
 
 /*
  * Class which represent a user.
@@ -206,5 +209,35 @@ public class UtilisateurDTO {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	/**
+	 * Convert a Utilisateur entity into a UtilisateurDTO.
+	 * @param utilisateur
+	 * @return
+	 */
+	static public UtilisateurDTO convertToDTO(Utilisateur utilisateur) {
+		UtilisateurDTO dto = new UtilisateurDTO();
+		
+		dto.setId(utilisateur.getIdUtilisateur());
+		dto.setNom(utilisateur.getNom());
+		dto.setPrenom(utilisateur.getPrenom());
+		dto.setEmail(utilisateur.getEmail());
+		dto.setRole(utilisateur.getRole());
+		dto.setDepartement(utilisateur.getDepartement().getIdDepartement());
+		
+		List<Integer> absenceIds = new ArrayList<>();
+		for (Absence absence : utilisateur.getAbsenceUtilisateur()) {
+		    absenceIds.add(absence.getIdAbsence());
+		}
+		dto.setAbsenceUtilisateur(absenceIds);
+		
+		List<Integer> compteurIds = new ArrayList<>();
+		for (Compteur compteur : utilisateur.getCompteurUtilisateur()) {
+		    compteurIds.add(compteur.getIdCompteur());
+		}
+		dto.setCompteurUtilisateur(compteurIds);
+		
+		return dto;
 	}
 }

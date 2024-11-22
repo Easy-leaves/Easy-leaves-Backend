@@ -2,10 +2,12 @@ package api.easy_leaves.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import api.easy_leaves.dto.DepartementDTO;
 import api.easy_leaves.model.Departement;
 import api.easy_leaves.services.DepartementService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +40,10 @@ public class DepartementController {
 	 * @return Liste des départements
 	 */
 	@GetMapping
-	public List<Departement> obtenirTousLesDepartements() {
-	    return departementService.getAllDepartements();
+	public List<DepartementDTO> obtenirTousLesDepartements() {
+		return departementService.getAllDepartements().stream()
+				.map(DepartementDTO::convertToDTO)
+				.collect(Collectors.toList());
 	}
 	
 	/**
@@ -49,9 +53,8 @@ public class DepartementController {
 	 * @return Département correspondant à l'ID
 	 */
 	@GetMapping("/{id}")
-	public Departement obtenirDepartementParId(@PathVariable int id) {
-	    Departement departement = departementService.getDepartementById(id);
-	    return departement;
+	public DepartementDTO obtenirDepartementParId(@PathVariable int id) {
+		return DepartementDTO.convertToDTO(departementService.getDepartementById(id));
 	}
 	
 	/**
