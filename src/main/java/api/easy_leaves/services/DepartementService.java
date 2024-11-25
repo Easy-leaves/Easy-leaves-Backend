@@ -1,5 +1,6 @@
 package api.easy_leaves.services;
 
+import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.model.Departement;
 import api.easy_leaves.repository.DepartementRepository;
 
@@ -34,10 +35,10 @@ public class DepartementService {
 	 * 
 	 * @param id Identifiant unique du département.
 	 * @return Le département correspondant.
-	 * @throws RuntimeException Si aucun département n'est trouvé pour l'identifiant donné.
+	 * @throws DataBaseError Si aucun département n'est trouvé pour l'identifiant donné.
 	 */
 	public Departement getDepartementById(int id) {
-	    return departementRepository.findById(id).orElseThrow(() -> new RuntimeException("Département introuvable"));
+	    return departementRepository.findById(id).orElseThrow(() -> new DataBaseError("Département introuvable"));
 	}
 	
 	/**

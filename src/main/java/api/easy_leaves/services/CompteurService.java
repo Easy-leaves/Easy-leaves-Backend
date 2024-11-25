@@ -1,5 +1,6 @@
 package api.easy_leaves.services;
 
+import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.model.Compteur;
 import api.easy_leaves.repository.CompteurRepository;
 
@@ -34,10 +35,10 @@ public class CompteurService {
 	 * 
 	 * @param id Identifiant unique du compteur.
 	 * @return Le compteur correspondant.
-	 * @throws RuntimeException Si aucun compteur n'est trouvé pour l'identifiant donné.
+	 * @throws DataBaseError Si aucun compteur n'est trouvé pour l'identifiant donné.
 	 */
 	public Compteur getCompteurById(int id) {
-	    return compteurRepository.findById(id).orElseThrow(() -> new RuntimeException("Compteur introuvable"));
+	    return compteurRepository.findById(id).orElseThrow(() -> new DataBaseError("Compteur introuvable"));
 	}
 	
 	/**

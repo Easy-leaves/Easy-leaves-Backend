@@ -65,8 +65,7 @@ public class DepartementController {
 	 */
 	@PostMapping("/add")
 	public Departement creerDepartement(@RequestBody Departement departement) {
-	    Departement nouveauDepartement = departementService.createDepartement(departement);
-	    return nouveauDepartement;
+	    return departementService.createDepartement(departement);
 	}
 	
 	/**
@@ -78,8 +77,7 @@ public class DepartementController {
 	 */
 	@PutMapping("/update/{id}")
 	public Departement mettreAJourDepartement(@PathVariable int id, @RequestBody Departement departementDetails) {
-	    Departement departementMisAJour = departementService.updateDepartement(id, departementDetails);
-	    return departementMisAJour;
+	    return departementService.updateDepartement(id, departementDetails);
 	}
 	
 	/**

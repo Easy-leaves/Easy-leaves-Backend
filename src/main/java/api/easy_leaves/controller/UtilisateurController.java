@@ -63,8 +63,7 @@ public class UtilisateurController {
 	 */
 	@PostMapping("/add")
 	public Utilisateur creerUtilisateur(@RequestBody Utilisateur utilisateur) {
-	    Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
-	    return nouvelUtilisateur;
+	    return utilisateurService.createUtilisateur(utilisateur);
 	}
 	
 	/**
@@ -76,8 +75,7 @@ public class UtilisateurController {
 	 */
 	@PutMapping("/update/{id}")
 	public Utilisateur mettreAJourUtilisateur(@PathVariable int id, @RequestBody Utilisateur utilisateurDetails) {
-	    Utilisateur utilisateurMisAJour = utilisateurService.updateUtilisateur(id, utilisateurDetails);
-	    return utilisateurMisAJour;
+	    return utilisateurService.updateUtilisateur(id, utilisateurDetails);
 	}
 	
 	/**
