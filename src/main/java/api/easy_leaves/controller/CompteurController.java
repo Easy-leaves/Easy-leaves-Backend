@@ -63,8 +63,7 @@ public class CompteurController {
 	 */
 	@PostMapping("/add")
 	public Compteur creerCompteur(@RequestBody Compteur compteur) {
-	    Compteur nouveauCompteur = compteurService.createCompteur(compteur);
-	    return nouveauCompteur;
+	    return compteurService.createCompteur(compteur);
 	}
 	
 	/**
@@ -76,8 +75,7 @@ public class CompteurController {
 	 */
 	@PutMapping("/update/{id}")
 	public Compteur mettreAJourCompteur(@PathVariable int id, @RequestBody Compteur compteurDetails) {
-	    Compteur compteurMisAJour = compteurService.updateCompteur(id, compteurDetails);
-	    return compteurMisAJour;
+	    return compteurService.updateCompteur(id, compteurDetails);
 	}
 	
 	/**
