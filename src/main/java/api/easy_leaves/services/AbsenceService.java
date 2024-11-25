@@ -9,6 +9,8 @@ import api.easy_leaves.repository.AbsenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,9 +65,21 @@ public class AbsenceService {
 	 * @throws IncoherenceDateError Si les données de date de la mise à jour ne sont pas cohérentes.
 	 */
 	public Absence updateAbsence(int id, Absence absenceDetails) {
+		
+		/*
+		 * La date de fin ne doit pas être inférieure à la date de début.
+		 */
 		if(absenceDetails.getDateFin().before(absenceDetails.getDateDebut())) {
 			throw new IncoherenceDateError("La date de début ne peut pas être inférieure à la date de fin");
 		}
+		
+		/*
+		 * La date de début ne doit pas être inférieure à aujourd'hui.
+		 */
+		if(absenceDetails.getDateDebut().before(Date.from(ZonedDateTime.now().toInstant()))) {
+			throw new IncoherenceDateError("La date de début ne peut pas être inférieure à la date de fin");
+		}
+		
 		Absence absence = getAbsenceById(id);
 		absence.setDateDebut(absenceDetails.getDateDebut());
 		absence.setDateFin(absenceDetails.getDateFin());
