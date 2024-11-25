@@ -1,6 +1,7 @@
 package api.easy_leaves.services;
 
 
+import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.repository.UtilisateurRepository;
 
@@ -36,10 +37,10 @@ public class UtilisateurService {
 	 * 
 	 * @param id Identifiant unique de l'utilisateur.
 	 * @return L'utilisateur correspondant.
-	 * @throws RuntimeException Si aucun utilisateur n'est trouvé pour l'identifiant donné.
+	 * @throws DataBaseError Si aucun utilisateur n'est trouvé pour l'identifiant donné.
 	 */
 	public Utilisateur getUtilisateurById(int id) {
-	    return utilisateurRepository.findById(id).orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+	    return utilisateurRepository.findById(id).orElseThrow(() -> new DataBaseError("Utilisateur introuvable"));
 	}
 	
 	/**

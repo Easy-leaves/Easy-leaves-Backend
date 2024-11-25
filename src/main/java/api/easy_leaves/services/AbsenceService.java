@@ -1,5 +1,8 @@
 package api.easy_leaves.services;
 
+import api.easy_leaves.errors.DataBaseError;
+import api.easy_leaves.errors.IncoherenceDateError;
+
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.repository.AbsenceRepository;
 
@@ -34,10 +37,10 @@ public class AbsenceService {
 	 * 
 	 * @param id Identifiant unique de l'absence.
 	 * @return L'absence correspondante.
-	 * @throws RuntimeException Si aucune absence n'est trouvée pour l'identifiant donné.
+	 * @throws DataBaseError Si aucune absence n'est trouvée pour l'identifiant donné.
 	 */
 	public Absence getAbsenceById(int id) {
-	    return absenceRepository.findById(id).orElseThrow(() -> new RuntimeException("Absence introuvable"));
+	    return absenceRepository.findById(id).orElseThrow(() -> new DataBaseError("Absence introuvable"));
 	}
 	
 	/**
@@ -57,8 +60,12 @@ public class AbsenceService {
 	 * @param absenceDetails Objet contenant les nouvelles informations de l'absence.
 	 * @return L'absence mise à jour.
 	 * @throws RuntimeException Si l'absence à mettre à jour n'existe pas.
+	 * @throws IncoherenceDateError Si les données de date de la mise à jour ne sont pas cohérentes.
 	 */
 	public Absence updateAbsence(int id, Absence absenceDetails) {
+		if(absenceDetails.getDateFin().before(absenceDetails.getDateDebut())) {
+			throw new IncoherenceDateError("La date de début ne peut pas être inférieure à la date de fin");
+		}
 		Absence absence = getAbsenceById(id);
 		absence.setDateDebut(absenceDetails.getDateDebut());
 		absence.setDateFin(absenceDetails.getDateFin());
