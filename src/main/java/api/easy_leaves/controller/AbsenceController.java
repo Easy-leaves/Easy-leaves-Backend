@@ -62,8 +62,7 @@ public class AbsenceController {
 	 */
 	@PostMapping("/add")
 	public Absence creerAbsence(@RequestBody Absence absence) {
-	    Absence nouvelleAbsence = absenceService.createAbsence(absence);
-	    return nouvelleAbsence;
+	    return absenceService.createAbsence(absence);
 	}
 	
 	/**
@@ -74,8 +73,7 @@ public class AbsenceController {
 	 */
 	@PutMapping("/update/{id}")
 	public Absence mettreAJourAbsence(@PathVariable int id, @RequestBody Absence absenceDetails) {
-	    Absence absenceMiseAJour = absenceService.updateAbsence(id, absenceDetails);
-	    return absenceMiseAJour;
+	    return absenceService.updateAbsence(id, absenceDetails);
 	}
 	
 	/**
