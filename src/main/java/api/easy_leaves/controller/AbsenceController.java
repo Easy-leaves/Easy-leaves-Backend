@@ -17,7 +17,7 @@ import api.easy_leaves.model.Absence;
 import api.easy_leaves.services.AbsenceService;
 
 /**
- * @author Theo
+ * @author Driss
  */
 @RestController
 @RequestMapping("/absences")
