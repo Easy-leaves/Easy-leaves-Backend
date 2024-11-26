@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * 
  * @author Driss
  */
-class UtilisateurServiceTest {
+public class UtilisateurServiceTest {
 
     @Mock
     private UtilisateurRepository utilisateurRepository;
@@ -36,7 +36,7 @@ class UtilisateurServiceTest {
      * Crée un mock d'utilisateur pour les tests.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(1);
@@ -50,7 +50,7 @@ class UtilisateurServiceTest {
      * Vérifie que le service retourne correctement les utilisateurs et que l'appel au repository est effectué.
      */
     @Test
-    void testGetAllUtilisateurs() {
+    public void testGetAllUtilisateurs() {
         when(utilisateurRepository.findAll()).thenReturn(Arrays.asList(utilisateur));
         assertEquals(1, utilisateurService.getAllUtilisateurs().size());
         verify(utilisateurRepository, times(1)).findAll();
@@ -61,7 +61,7 @@ class UtilisateurServiceTest {
      * Vérifie que l'utilisateur est trouvé et ses détails sont corrects.
      */
     @Test
-    void testGetUtilisateurById() {
+    public void testGetUtilisateurById() {
         when(utilisateurRepository.findById(1)).thenReturn(Optional.of(utilisateur));
         assertNotNull(utilisateurService.getUtilisateurById(1));
         assertEquals("Doe", utilisateurService.getUtilisateurById(1).getNom());
@@ -73,7 +73,7 @@ class UtilisateurServiceTest {
      * Vérifie que l'utilisateur est correctement créé et sauvegardé.
      */
     @Test
-    void testCreateUtilisateur() {
+    public void testCreateUtilisateur() {
         when(utilisateurRepository.save(any(Utilisateur.class))).thenReturn(utilisateur);
         assertNotNull(utilisateurService.createUtilisateur(utilisateur));
         verify(utilisateurRepository, times(1)).save(utilisateur);
@@ -84,7 +84,7 @@ class UtilisateurServiceTest {
      * Vérifie que l'utilisateur est supprimé correctement du repository.
      */
     @Test
-    void testDeleteUtilisateur() {
+    public void testDeleteUtilisateur() {
         doNothing().when(utilisateurRepository).deleteById(1);
         utilisateurService.deleteUtilisateur(1);
         verify(utilisateurRepository, times(1)).deleteById(1);

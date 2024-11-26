@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Driss
  */
-class CompteurServiceTest {
+public class CompteurServiceTest {
 
     @Mock
     private CompteurRepository compteurRepository;
@@ -35,7 +35,7 @@ class CompteurServiceTest {
      * Crée un mock de compteur pour les tests.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         compteur = new Compteur();
         compteur.setIdCompteur(1);
@@ -47,7 +47,7 @@ class CompteurServiceTest {
      * Vérifie que le compteur est trouvé et que l'année est correcte.
      */
     @Test
-    void testGetCompteurById() {
+    public void testGetCompteurById() {
         when(compteurRepository.findById(1)).thenReturn(Optional.of(compteur));
         assertEquals(2023, compteurService.getCompteurById(1).getAnnee());
         verify(compteurRepository, times(1)).findById(1);
@@ -58,7 +58,7 @@ class CompteurServiceTest {
      * Vérifie que le compteur est correctement créé et sauvegardé.
      */
     @Test
-    void testCreateCompteur() {
+    public void testCreateCompteur() {
         when(compteurRepository.save(any(Compteur.class))).thenReturn(compteur);
         assertNotNull(compteurService.createCompteur(compteur));
         verify(compteurRepository, times(1)).save(compteur);

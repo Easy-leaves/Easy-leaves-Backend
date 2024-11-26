@@ -18,7 +18,7 @@ import api.easy_leaves.repository.DepartementRepository;
  * @author Driss
  */
 @SpringBootTest
-class DepartementRepositoryTest {
+public class DepartementRepositoryTest {
 
     @Autowired
     private DepartementRepository departementRepository;
@@ -28,7 +28,7 @@ class DepartementRepositoryTest {
      * Vérifie que le département est correctement sauvegardé et récupéré.
      */
     @Test
-    void testCreateAndRetrieveDepartement() {
+    public void testCreateAndRetrieveDepartement() {
         // Arrange
         Departement departement = new Departement();
         departement.setLibelle("IT");
@@ -50,7 +50,7 @@ class DepartementRepositoryTest {
      * Vérifie que les modifications effectuées sur un département sont correctement sauvegardées.
      */
     @Test
-    void testUpdateDepartement() {
+    public void testUpdateDepartement() {
         // Arrange
         Departement departement = new Departement();
         departement.setLibelle("IT");
@@ -72,7 +72,7 @@ class DepartementRepositoryTest {
      * Vérifie que le département est bien supprimé du dépôt.
      */
     @Test
-    void testDeleteDepartement() {
+    public void testDeleteDepartement() {
         // Arrange
         Departement departement = new Departement();
         departement.setLibelle("Marketing");

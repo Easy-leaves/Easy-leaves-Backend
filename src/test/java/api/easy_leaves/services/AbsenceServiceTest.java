@@ -33,7 +33,7 @@ import java.util.Optional;
  */
 @SpringBootTest
 @Transactional
-class AbsenceServiceTest {
+public class AbsenceServiceTest {
 
     @Mock
     private AbsenceRepository absenceRepository;
@@ -49,7 +49,7 @@ class AbsenceServiceTest {
      * Crée des objets mock pour l'utilisateur et l'absence.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
 
         Departement mockDepartement = new Departement();
@@ -80,7 +80,7 @@ class AbsenceServiceTest {
      * Vérifie que le service retourne correctement les absences et que l'appel au repository est effectué.
      */
     @Test
-    void testGetAllAbsences() {
+    public void testGetAllAbsences() {
         when(absenceRepository.findAll()).thenReturn(Arrays.asList(mockAbsence));
 
         var absences = absenceService.getAllAbsences();
@@ -97,7 +97,7 @@ class AbsenceServiceTest {
      * Vérifie la présence de l'absence et ses détails dans le service.
      */
     @Test
-    void testGetAbsenceById_Found() {
+    public void testGetAbsenceById_Found() {
         when(absenceRepository.findById(1)).thenReturn(Optional.of(mockAbsence));
 
         var absence = absenceService.getAbsenceById(1);
@@ -113,7 +113,7 @@ class AbsenceServiceTest {
      * Vérifie que l'absence est correctement enregistrée et retournée.
      */
     @Test
-    void testCreateAbsence() {
+    public void testCreateAbsence() {
         when(absenceRepository.save(any(Absence.class))).thenReturn(mockAbsence);
 
         var createdAbsence = absenceService.createAbsence(mockAbsence);

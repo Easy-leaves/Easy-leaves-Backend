@@ -26,7 +26,7 @@ import api.easy_leaves.model.Utilisateur;
  * @author Driss
  */
 @SpringBootTest
-class CompteurRepositoryTest {
+public class CompteurRepositoryTest {
 
     @Autowired
     private CompteurRepository compteurRepository;
@@ -44,7 +44,7 @@ class CompteurRepositoryTest {
      * Un utilisateur et un département sont créés pour être utilisés dans les cas de test.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Arrange
         Departement departement = new Departement();
         departement.setLibelle("Operations");
@@ -76,7 +76,7 @@ class CompteurRepositoryTest {
      * - L'association avec l'utilisateur est correcte.
      */
     @Test
-    void testCreateCompteurForUtilisateur() {
+    public void testCreateCompteurForUtilisateur() {
         // Arrange: Créer un compteur lié à l'utilisateur
         Compteur compteur = new Compteur();
         compteur.setAnnee(2024);
@@ -99,7 +99,7 @@ class CompteurRepositoryTest {
      * Vérifie que le compteur est correctement supprimé du dépôt.
      */
     @Test
-    void testDeleteCompteur() {
+    public void testDeleteCompteur() {
         // Arrange: Créer et sauvegarder un compteur
         Compteur compteur = new Compteur();
         compteur.setAnnee(2024);

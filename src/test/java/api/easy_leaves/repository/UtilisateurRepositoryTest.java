@@ -21,7 +21,7 @@ import api.easy_leaves.model.Utilisateur;
  * @autor Driss
  */
 @SpringBootTest
-class UtilisateurRepositoryTest {
+public class UtilisateurRepositoryTest {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -36,7 +36,7 @@ class UtilisateurRepositoryTest {
      * Un département est créé pour être utilisé dans les cas de test.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         departement = new Departement();
         departement.setLibelle("HR");
         departement = departementRepository.save(departement);
@@ -47,7 +47,7 @@ class UtilisateurRepositoryTest {
      * Vérifie que l'utilisateur est correctement sauvegardé et lié au département.
      */
     @Test
-    void testCreateUtilisateurWithDepartement() {
+    public void testCreateUtilisateurWithDepartement() {
         // Arrange
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom("Smith");

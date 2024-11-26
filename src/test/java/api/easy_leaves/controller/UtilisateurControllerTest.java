@@ -44,7 +44,7 @@ public class UtilisateurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testCreerUtilisateur() throws Exception {
+    public void testCreerUtilisateur() throws Exception {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(1);
         when(utilisateurService.createUtilisateur(any(Utilisateur.class))).thenReturn(utilisateur);
@@ -62,7 +62,7 @@ public class UtilisateurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testMettreAJourUtilisateur() throws Exception {
+    public void testMettreAJourUtilisateur() throws Exception {
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setIdUtilisateur(1);
         when(utilisateurService.updateUtilisateur(eq(1), any(Utilisateur.class))).thenReturn(utilisateur);
@@ -80,7 +80,7 @@ public class UtilisateurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testSupprimerUtilisateur() throws Exception {
+    public void testSupprimerUtilisateur() throws Exception {
         doNothing().when(utilisateurService).deleteUtilisateur(1);
 
         mockMvc.perform(delete("/utilisateurs/delete/1"))

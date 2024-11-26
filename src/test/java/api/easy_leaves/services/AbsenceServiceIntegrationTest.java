@@ -57,7 +57,7 @@ public class AbsenceServiceIntegrationTest {
      * Crée des objets mock pour l'utilisateur, le département et l'absence.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         
         mockDepartement = new Departement();
@@ -87,7 +87,7 @@ public class AbsenceServiceIntegrationTest {
      * Teste la création d'une absence et sa persistance dans la base de données.
      */
     @Test
-    void testCreateAbsence() {
+    public void testCreateAbsence() {
         departementRepository.save(mockDepartement);
         mockUtilisateur.setDepartement(mockDepartement);
         utilisateurRepository.save(mockUtilisateur);
