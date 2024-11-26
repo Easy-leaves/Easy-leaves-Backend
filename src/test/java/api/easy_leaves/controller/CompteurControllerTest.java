@@ -44,7 +44,7 @@ public class CompteurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testCreerCompteur() throws Exception {
+    public void testCreerCompteur() throws Exception {
         Compteur compteur = new Compteur();
         compteur.setIdCompteur(1);
         when(compteurService.createCompteur(any(Compteur.class))).thenReturn(compteur);
@@ -62,7 +62,7 @@ public class CompteurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testMettreAJourCompteur() throws Exception {
+    public void testMettreAJourCompteur() throws Exception {
         Compteur compteur = new Compteur();
         compteur.setIdCompteur(1);
         when(compteurService.updateCompteur(eq(1), any(Compteur.class))).thenReturn(compteur);
@@ -80,7 +80,7 @@ public class CompteurControllerTest {
      * @throws Exception en cas d'erreur MockMvc
      */
     @Test
-    void testSupprimerCompteur() throws Exception {
+    public void testSupprimerCompteur() throws Exception {
         doNothing().when(compteurService).deleteCompteur(1);
 
         mockMvc.perform(delete("/compteurs/delete/1"))

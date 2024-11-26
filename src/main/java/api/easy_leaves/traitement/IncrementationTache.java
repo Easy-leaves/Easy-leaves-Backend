@@ -21,7 +21,7 @@ public class IncrementationTache {
 	 * Exécutée tous les jours à minuit.
 	 * Pour vérifier le fonctionnement mettre "0 * * * * *" qui met à jour toutes les minutes
 	 */
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void updateAbsenceStatut() {
 		List<Absence> absences = absenceRepository.findByStatut(Statut.INITIALE);
 		

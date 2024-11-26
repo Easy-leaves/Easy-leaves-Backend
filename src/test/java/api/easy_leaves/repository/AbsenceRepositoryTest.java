@@ -31,7 +31,7 @@ import api.easy_leaves.model.Utilisateur;
  * @author Driss
  */
 @SpringBootTest
-class AbsenceRepositoryTest {
+public class AbsenceRepositoryTest {
 	
 	/**
      * Référence au dépôt des absences.
@@ -66,7 +66,7 @@ class AbsenceRepositoryTest {
      * Un utilisateur et un département sont créés pour être utilisés dans les cas de test.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Initialiser un département
         departement = new Departement();
         departement.setLibelle("Finaces");
@@ -89,7 +89,7 @@ class AbsenceRepositoryTest {
      * Vérifie que l'absence est correctement sauvegardée et que les champs sont bien renseignés.
      */
     @Test
-    void testCreateAbsence() {
+    public void testCreateAbsence() {
         // Arrange
         Absence absence = new Absence();
         absence.setDateDebut(new Date());
@@ -114,7 +114,7 @@ class AbsenceRepositoryTest {
      * Vérifie que l'absence récupérée correspond bien à celle sauvegardée.
      */
     @Test
-    void testFindAbsenceById() {
+    public void testFindAbsenceById() {
         // Arrange
         Absence absence = new Absence();
         absence.setDateDebut(new Date());
@@ -139,7 +139,7 @@ class AbsenceRepositoryTest {
      * Vérifie que toutes les absences associées à un utilisateur sont bien retournées.
      */
     @Test
-    void testFindAbsencesByUtilisateur() {
+    public void testFindAbsencesByUtilisateur() {
         // Arrange
         Absence absence1 = new Absence();
         absence1.setDateDebut(new Date());
@@ -172,7 +172,7 @@ class AbsenceRepositoryTest {
      * Vérifie que les modifications effectuées sur une absence sont correctement sauvegardées.
      */
     @Test
-    void testUpdateAbsence() {
+    public void testUpdateAbsence() {
         // Arrange
         Absence absence = new Absence();
         absence.setDateDebut(new Date());
@@ -198,7 +198,7 @@ class AbsenceRepositoryTest {
      * Vérifie que l'absence est bien supprimée du dépôt.
      */
     @Test
-    void testDeleteAbsence() {
+    public void testDeleteAbsence() {
         // Arrange
         Absence absence = new Absence();
         absence.setDateDebut(new Date());

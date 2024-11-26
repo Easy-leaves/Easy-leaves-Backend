@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
  * 
  * @author Driss
  */
-class DepartementServiceTest {
+public class DepartementServiceTest {
 
     @Mock
     private DepartementRepository departementRepository;
@@ -34,7 +34,7 @@ class DepartementServiceTest {
      * Crée un mock de département pour les tests.
      */
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         departement = new Departement();
         departement.setIdDepartement(1);
@@ -46,7 +46,7 @@ class DepartementServiceTest {
      * Vérifie que le département est trouvé et que le libellé est correct.
      */
     @Test
-    void testGetDepartementById() {
+    public void testGetDepartementById() {
         when(departementRepository.findById(1)).thenReturn(Optional.of(departement));
         assertEquals("IT", departementService.getDepartementById(1).getLibelle());
         verify(departementRepository, times(1)).findById(1);
@@ -57,7 +57,7 @@ class DepartementServiceTest {
      * Vérifie que le département est correctement créé et sauvegardé.
      */
     @Test
-    void testCreateDepartement() {
+    public void testCreateDepartement() {
         when(departementRepository.save(any(Departement.class))).thenReturn(departement);
         assertNotNull(departementService.createDepartement(departement));
         verify(departementRepository, times(1)).save(departement);
