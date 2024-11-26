@@ -20,11 +20,22 @@ import java.util.List;
 @Service
 public class UtilisateurService {
 	
+	/**
+	 * Référentiel pour accéder aux données des utilisateurs dans la base de données.
+	 */
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
+	
+
+	/**
+	 * Encodeur de mot de passe pour sécuriser les mots de passe des utilisateurs.
+	 */
 	private PasswordEncoder passwordEncoder;
 	
-    // Injection du PasswordEncoder via le constructeur
+	/**
+	 * Constructeur pour injecter le `PasswordEncoder`.
+	 * @param passwordEncoder Encodeur de mot de passe utilisé pour encoder les mots de passe.
+	 */
     @Autowired
     public UtilisateurService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -32,7 +43,6 @@ public class UtilisateurService {
 	
 	/**
 	 * Récupérer tous les utilisateurs.
-	 * 
 	 * @return Liste des utilisateurs disponibles.
 	 */
 	public List<Utilisateur> getAllUtilisateurs() {
