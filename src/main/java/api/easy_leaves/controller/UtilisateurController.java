@@ -62,8 +62,9 @@ public class UtilisateurController {
 	 * @return Utilisateur créé
 	 */
 	@PostMapping("/add")
-	public Utilisateur creerUtilisateur(@RequestBody Utilisateur utilisateur) {
-	    return utilisateurService.createUtilisateur(utilisateur);
+	public int creerUtilisateur(@RequestBody Utilisateur utilisateur) {
+	    Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
+	    return nouvelUtilisateur.getIdUtilisateur();
 	}
 	
 	/**

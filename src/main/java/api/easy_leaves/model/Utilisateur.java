@@ -1,7 +1,12 @@
 package api.easy_leaves.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import api.easy_leaves.enums.Role;
 import jakarta.persistence.CascadeType;
@@ -20,7 +25,7 @@ import jakarta.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "UTILISATEUR")
-public class Utilisateur {
+public class Utilisateur implements UserDetails{
 	
 	/** idUtilisateur */
 	@Id
@@ -35,6 +40,9 @@ public class Utilisateur {
 	
 	/** email */
 	private String email;
+	
+	/** mot de passe */
+	private String mdp;
 	
 	/** role */
 	private Role role;
@@ -57,17 +65,19 @@ public class Utilisateur {
 	 * @param nom
 	 * @param prenom
 	 * @param email
+	 * @param motDePasse
 	 * @param role
 	 * @param compteurUtilisateur
 	 * @param departement
 	 * @param absenceUtilisateur
 	 */
-	public Utilisateur(String nom, String prenom, String email, Role role, List<Compteur> compteurUtilisateur,
+	public Utilisateur(String nom, String prenom, String email,String motDePasse, Role role, List<Compteur> compteurUtilisateur,
 			Departement departement, List<Absence> absenceUtilisateur) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
+		this.mdp = motDePasse;
 		this.role = role;
 		this.compteurUtilisateur = compteurUtilisateur;
 		this.departement = departement;
@@ -191,5 +201,42 @@ public class Utilisateur {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public void setPassword(String motDePasse) {
+		this.mdp = motDePasse;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+	
+	public String getMdp() {
+		return mdp;
+	}
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return mdp;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur [idUtilisateur=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", email="
+				+ email + ", mdp=" + mdp + ", role=" + role + ", compteurUtilisateur=" + compteurUtilisateur
+				+ ", departement=" + departement + ", absenceUtilisateur=" + absenceUtilisateur + "]";
 	}
 }
