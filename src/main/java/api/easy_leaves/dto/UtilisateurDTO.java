@@ -33,6 +33,11 @@ public class UtilisateurDTO {
 	 */
 	private String email;
 	
+	/** 
+	 * The user password.
+	 */
+	private String mdp;
+	
 	/**
 	 * The role of the user.
 	 */
@@ -63,13 +68,14 @@ public class UtilisateurDTO {
 	 * @param departement
 	 * @param absenceUtilisateur
 	 */
-	public UtilisateurDTO(String nom, String prenom, String email, Role role,
+	public UtilisateurDTO(String nom, String prenom, String email, String mdp, Role role,
 			List<Integer> compteurIds, int departementId, List<Integer> absenceIds)
 	{
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
+		this.mdp = mdp;
 		this.role = role;
 		this.compteurIds = compteurIds;
 		this.departementId = departementId;
@@ -145,6 +151,22 @@ public class UtilisateurDTO {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	/**
+	 * Getter
+	 * @return the password.
+	 */
+	public String getMdp() {
+		return mdp;
+	}
+
+	/**
+	 * Setter
+	 * @param password the password to set
+	 */
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
 	}
 
 	/**
@@ -223,6 +245,7 @@ public class UtilisateurDTO {
 		dto.setNom(utilisateur.getNom());
 		dto.setPrenom(utilisateur.getPrenom());
 		dto.setEmail(utilisateur.getEmail());
+		dto.setMdp(utilisateur.getPassword());
 		dto.setRole(utilisateur.getRole());
 		dto.setDepartement(utilisateur.getDepartement().getIdDepartement());
 		

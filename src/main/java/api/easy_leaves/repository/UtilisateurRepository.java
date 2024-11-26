@@ -1,6 +1,7 @@
 package api.easy_leaves.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,11 +19,25 @@ import api.easy_leaves.model.Utilisateur;
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer>{
 	
 	/**
+	 * Trouver un utilisateur par son nom
+	 * @param nom
+	 * @return
+	 */
+	Optional<Utilisateur> findByNom(String nom);
+	
+	/**
+	 * Trouver un utilisateur par son prenom
+	 * @param prenom
+	 * @return
+	 */
+	Optional<Utilisateur> findByPrenom(String prenom);
+	
+	/**
 	 * Trouver un utilisateur par email
 	 * @param email
 	 * @return
 	 */
-	Utilisateur findByEmail(String email);
+	Optional<Utilisateur> findByEmail(String email);
 	
 	/**
 	 * Trouver tous les utilisateurs par rôle

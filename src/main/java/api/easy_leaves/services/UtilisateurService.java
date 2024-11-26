@@ -6,6 +6,7 @@ import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.repository.UtilisateurRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,13 @@ public class UtilisateurService {
 	
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
+	private PasswordEncoder passwordEncoder;
+	
+    // Injection du PasswordEncoder via le constructeur
+    @Autowired
+    public UtilisateurService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 	
 	/**
 	 * Récupérer tous les utilisateurs.
@@ -50,6 +58,8 @@ public class UtilisateurService {
 	 * @return L'utilisateur nouvellement créé.
 	 */
 	public Utilisateur createUtilisateur(Utilisateur utilisateur) {
+	    String encodedPassword = passwordEncoder.encode(utilisateur.getPassword());
+	    utilisateur.setPassword(encodedPassword);
 	    return utilisateurRepository.save(utilisateur);
 	}
 	
