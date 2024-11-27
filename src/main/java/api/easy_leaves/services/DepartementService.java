@@ -73,4 +73,15 @@ public class DepartementService {
 	public void deleteDepartement(int id) {
 	    departementRepository.deleteById(id);
 	}
+	
+	/**
+     * Récupérer un département par son libellé.
+     * 
+     * @param libelle Libellé du département.
+     * @return Le département correspondant.
+     * @throws DataBaseError Si aucun département n'est trouvé pour le libellé donné.
+     */
+    public Departement getDepartementByLibelle(String libelle) {
+        return departementRepository.findByLibelle(libelle);
+    }
 }

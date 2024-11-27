@@ -90,4 +90,15 @@ public class DepartementController {
 	public void supprimerDepartement(@PathVariable int id) {
 	    departementService.deleteDepartement(id);
 	}
+	
+	/**
+     * Récupérer un département par son libellé.
+     * 
+     * @param libelle Libellé du département.
+     * @return Département correspondant au libellé.
+     */
+    @GetMapping("/libelle/{libelle}")
+    public DepartementDTO obtenirDepartementParLibelle(@PathVariable String libelle) {
+        return DepartementDTO.convertToDTO(departementService.getDepartementByLibelle(libelle));
+    }
 }
