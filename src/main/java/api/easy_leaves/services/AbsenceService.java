@@ -105,27 +105,27 @@ public class AbsenceService {
 	 * @param statut Le statut des absences à récupérer.
 	 * @return Liste des absences avec le statut donné.
 	 */
-    public List<Absence> getAbsencesByStatut(Statut statut) {
-        return absenceRepository.findByStatut(statut);
-    }
+	public List<Absence> getAbsencesByStatut(Statut statut) {
+		return absenceRepository.findByStatut(statut);
+	}
 
-    /**
-     * Récupérer toutes les absences dans une plage de dates.
-     * @param startDate Date de début de la plage.
-     * @param endDate Date de fin de la plage.
-     * @return Liste des absences dans la plage de dates donnée.
-     */
-    public List<Absence> getAbsencesByDateRange(Date startDate, Date endDate) {
-        return absenceRepository.findByDateDebutBetween(startDate, endDate);
-    }
+	/**
+	 * Récupérer toutes les absences dans une plage de dates.
+	 * @param startDate Date de début de la plage.
+	 * @param endDate Date de fin de la plage.
+	 * @return Liste des absences dans la plage de dates donnée.
+	 */
+	public List<Absence> getAbsencesByDateRange(Date startDate, Date endDate) {
+		return absenceRepository.findByDateDebutBetween(startDate, endDate);
+	}
 
-    /**
-     * Compter le nombre d'absences pour un utilisateur avec un statut spécifique.
-     * @param utilisateur L'utilisateur pour lequel on compte les absences.
-     * @param statut Le statut des absences à compter.
-     * @return Le nombre d'absences pour cet utilisateur avec le statut donné.
-     */
-    public Long countAbsencesByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut) {
-        return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
-    }
+	/**
+	 * Compter le nombre d'absences pour un utilisateur avec un statut spécifique.
+	 * @param utilisateur L'utilisateur pour lequel on compte les absences.
+	 * @param statut Le statut des absences à compter.
+	 * @return Le nombre d'absences pour cet utilisateur avec le statut donné.
+	 */
+	public Long countAbsencesByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut) {
+		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
+	}
 }

@@ -101,47 +101,47 @@ public class UtilisateurController {
         utilisateurService.deleteUtilisateur(id);
     }
 
-    /**
-     * Récupérer tous les utilisateurs d'un rôle donné.
-     * Endpoint : GET /utilisateurs/role/{role}
-     *
-     * @param role Rôle des utilisateurs à rechercher.
-     * @return Liste des utilisateurs ayant ce rôle sous forme de DTO.
-     */
-    @GetMapping("/role/{role}")
-    public List<UtilisateurDTO> obtenirUtilisateursParRole(@PathVariable Role role) {
-        return utilisateurService.getUtilisateursByRole(role).stream()
-                .map(UtilisateurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer tous les utilisateurs d'un rôle donné.
+	 * Endpoint : GET /utilisateurs/role/{role}
+	 *
+	 * @param role Rôle des utilisateurs à rechercher.
+	 * @return Liste des utilisateurs ayant ce rôle sous forme de DTO.
+	 */
+	@GetMapping("/role/{role}")
+	public List<UtilisateurDTO> obtenirUtilisateursParRole(@PathVariable Role role) {
+		return utilisateurService.getUtilisateursByRole(role).stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 
-    /**
-     * Récupérer les utilisateurs d'un département donné.
-     * Endpoint : GET /utilisateurs/departement/{departementId}
-     *
-     * @param departementId Identifiant du département.
-     * @return Liste des utilisateurs du département sous forme de DTO.
-     */
-    @GetMapping("/departement/{idDepartement}")
-    public List<UtilisateurDTO> obtenirUtilisateursParDepartement(@PathVariable int idDepartement) {
-        Departement departement = new Departement();
-        departement.setIdDepartement(idDepartement);
-        
-        return utilisateurService.getUtilisateursByDepartement(departement)
-                .stream()
-                .map(UtilisateurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer les utilisateurs d'un département donné.
+	 * Endpoint : GET /utilisateurs/departement/{departementId}
+	 *
+	 * @param departementId Identifiant du département.
+	 * @return Liste des utilisateurs du département sous forme de DTO.
+	 */
+	@GetMapping("/departement/{idDepartement}")
+	public List<UtilisateurDTO> obtenirUtilisateursParDepartement(@PathVariable int idDepartement) {
+		Departement departement = new Departement();
+		departement.setIdDepartement(idDepartement);
 
-    /**
-     * Récupérer les utilisateurs ayant un type de compteur spécifique.
-     * Endpoint : GET /utilisateurs/compteur/{typeCompteur}
-     *
-     * @param typeCompteur Type de compteur recherché.
-     * @return Liste des utilisateurs avec ce type de compteur.
-     */
-    @GetMapping("/compteur/{typeCompteur}")
-    public List<UtilisateurDTO> obtenirUtilisateursParTypeCompteur(@PathVariable TypeCompteur typeCompteur) {
-        return utilisateurService.getUtilisateursByCompteurType(typeCompteur).stream().map(UtilisateurDTO::convertToDTO).collect(Collectors.toList());
-    }
+		return utilisateurService.getUtilisateursByDepartement(departement)
+				.stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Récupérer les utilisateurs ayant un type de compteur spécifique.
+	 * Endpoint : GET /utilisateurs/compteur/{typeCompteur}
+	 *
+	 * @param typeCompteur Type de compteur recherché.
+	 * @return Liste des utilisateurs avec ce type de compteur.
+	 */
+	@GetMapping("/compteur/{typeCompteur}")
+	public List<UtilisateurDTO> obtenirUtilisateursParTypeCompteur(@PathVariable TypeCompteur typeCompteur) {
+		return utilisateurService.getUtilisateursByCompteurType(typeCompteur).stream().map(UtilisateurDTO::convertToDTO).collect(Collectors.toList());
+	}
 }

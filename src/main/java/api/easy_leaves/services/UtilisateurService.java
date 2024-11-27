@@ -147,23 +147,23 @@ public class UtilisateurService {
         utilisateurRepository.deleteById(id);
     }
 
-    /**
-     * Récupérer un utilisateur avec ses absences.
-     * 
-     * @param id Identifiant de l'utilisateur.
-     * @return L'utilisateur avec ses absences.
-     */
-    public Utilisateur getUtilisateurWithAbsences(int id) {
-        return utilisateurRepository.findByIdWithAbsences(id);
-    }
+	/**
+	 * Récupérer un utilisateur avec ses absences.
+	 * 
+	 * @param id Identifiant de l'utilisateur.
+	 * @return L'utilisateur avec ses absences.
+	 */
+	public Utilisateur getUtilisateurWithAbsences(int id) {
+		return utilisateurRepository.findByIdWithAbsences(id);
+	}
 
-    /**
-     * Récupérer les utilisateurs ayant un compteur spécifique.
-     * 
-     * @param type Type de compteur.
-     * @return Liste des utilisateurs ayant ce compteur.
-     */
-    public List<Utilisateur> getUtilisateursByCompteurType(api.easy_leaves.enums.TypeCompteur type) {
-        return utilisateurRepository.findByCompteurType(type);
-    }
+	/**
+	 * Récupérer les utilisateurs ayant un compteur spécifique.
+	 * 
+	 * @param type Type de compteur.
+	 * @return Liste des utilisateurs ayant ce compteur.
+	 */
+	public List<Utilisateur> getUtilisateursByCompteurType(api.easy_leaves.enums.TypeCompteur type) {
+		return utilisateurRepository.findByCompteurType(type);
+	}
 }

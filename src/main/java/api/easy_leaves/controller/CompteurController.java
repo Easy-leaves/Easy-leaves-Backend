@@ -100,68 +100,68 @@ public class CompteurController {
 	 * @param utilisateur Objet utilisateur.
 	 * @return Liste des compteurs de l'utilisateur.
 	 */
-    @GetMapping("/utilisateur/{id}")
-    public List<CompteurDTO> obtenirCompteursParUtilisateur(@PathVariable Utilisateur utilisateur) {
-        return compteurService.findByUtilisateur(utilisateur).stream()
-                .map(CompteurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	@GetMapping("/utilisateur/{id}")
+	public List<CompteurDTO> obtenirCompteursParUtilisateur(@PathVariable Utilisateur utilisateur) {
+		return compteurService.findByUtilisateur(utilisateur).stream()
+				.map(CompteurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 
-    /**
-     * Récupérer les compteurs pour une année donnée.
-     * Exemple : GET localhost:8080/compteurs/annee/2024
-     *
-     * @param annee Année.
-     * @return Liste des compteurs pour l'année donnée.
-     */
-    @GetMapping("/annee/{annee}")
-    public List<CompteurDTO> obtenirCompteursParAnnee(@RequestParam int annee) {
-        return compteurService.findByAnnee(annee).stream()
-                .map(CompteurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer les compteurs pour une année donnée.
+	 * Exemple : GET localhost:8080/compteurs/annee/2024
+	 *
+	 * @param annee Année.
+	 * @return Liste des compteurs pour l'année donnée.
+	 */
+	@GetMapping("/annee/{annee}")
+	public List<CompteurDTO> obtenirCompteursParAnnee(@RequestParam int annee) {
+		return compteurService.findByAnnee(annee).stream()
+				.map(CompteurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 
-    /**
-     * Récupérer les compteurs par type et utilisateur.
-     * Exemple : GET localhost:8080/compteurs/type-utilisateur/{typeCompteur}/{utilisateur}
-     *
-     * @param typeCompteur Type de compteur.
-     * @param utilisateur  Utilisateur.
-     * @return Liste des compteurs correspondant au type et à l'utilisateur.
-     */
-    @GetMapping("/type-utilisateur/{typeCompteur}/{utilisateur}")
-    public List<CompteurDTO> obtenirCompteursParTypeEtUtilisateur(@RequestParam TypeCompteur typeCompteur, @RequestParam Utilisateur utilisateur) {
-        return compteurService.findByTypeCompteurAndUtilisateur(typeCompteur, utilisateur).stream()
-                .map(CompteurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer les compteurs par type et utilisateur.
+	 * Exemple : GET localhost:8080/compteurs/type-utilisateur/{typeCompteur}/{utilisateur}
+	 *
+	 * @param typeCompteur Type de compteur.
+	 * @param utilisateur  Utilisateur.
+	 * @return Liste des compteurs correspondant au type et à l'utilisateur.
+	 */
+	@GetMapping("/type-utilisateur/{typeCompteur}/{utilisateur}")
+	public List<CompteurDTO> obtenirCompteursParTypeEtUtilisateur(@RequestParam TypeCompteur typeCompteur, @RequestParam Utilisateur utilisateur) {
+		return compteurService.findByTypeCompteurAndUtilisateur(typeCompteur, utilisateur).stream()
+				.map(CompteurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 
-    /**
-     * Compter le nombre de compteurs d'un certain type pour une année donnée.
-     * Exemple : GET localhost:8080/compter/{typeCompteur}/{annee}
-     *
-     * @param typeCompteur Type de compteur.
-     * @param annee        Année.
-     * @return Nombre de compteurs trouvés.
-     */
-    @GetMapping("/compter/{typeCompteur}/{annee}")
-    public Long compterCompteursParTypeEtAnnee(@RequestParam TypeCompteur typeCompteur, @RequestParam int annee) {
-        return compteurService.countByTypeCompteurAndAnnee(typeCompteur, annee);
-    }
+	/**
+	 * Compter le nombre de compteurs d'un certain type pour une année donnée.
+	 * Exemple : GET localhost:8080/compter/{typeCompteur}/{annee}
+	 *
+	 * @param typeCompteur Type de compteur.
+	 * @param annee        Année.
+	 * @return Nombre de compteurs trouvés.
+	 */
+	@GetMapping("/compter/{typeCompteur}/{annee}")
+	public Long compterCompteursParTypeEtAnnee(@RequestParam TypeCompteur typeCompteur, @RequestParam int annee) {
+		return compteurService.countByTypeCompteurAndAnnee(typeCompteur, annee);
+	}
 
-    /**
-     * Récupérer les compteurs pour un utilisateur donné dans une plage d'années.
-     * Exemple : GET localhost:8080/compteurs/plage-annees/{utilisateur}/{startYear}/{endYear}
-     *
-     * @param utilisateur Utilisateur.
-     * @param startYear   Année de début.
-     * @param endYear     Année de fin.
-     * @return Liste des compteurs pour la plage d'années donnée.
-     */
-    @GetMapping("/plage-annees/{utilisateur}/{startYear}/{endYear}")
-    public List<CompteurDTO> obtenirCompteursParPlageDAnnees(@RequestParam Utilisateur utilisateur, @RequestParam int startYear, @RequestParam int endYear) {
-        return compteurService.findByUtilisateurAndAnneeBetween(utilisateur, startYear, endYear).stream()
-                .map(CompteurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer les compteurs pour un utilisateur donné dans une plage d'années.
+	 * Exemple : GET localhost:8080/compteurs/plage-annees/{utilisateur}/{startYear}/{endYear}
+	 *
+	 * @param utilisateur Utilisateur.
+	 * @param startYear   Année de début.
+	 * @param endYear     Année de fin.
+	 * @return Liste des compteurs pour la plage d'années donnée.
+	 */
+	@GetMapping("/plage-annees/{utilisateur}/{startYear}/{endYear}")
+	public List<CompteurDTO> obtenirCompteursParPlageDAnnees(@RequestParam Utilisateur utilisateur, @RequestParam int startYear, @RequestParam int endYear) {
+		return compteurService.findByUtilisateurAndAnneeBetween(utilisateur, startYear, endYear).stream()
+				.map(CompteurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 }
