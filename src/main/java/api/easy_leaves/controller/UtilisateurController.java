@@ -28,78 +28,78 @@ import api.easy_leaves.services.UtilisateurService;
 @RestController
 @RequestMapping("/utilisateurs")
 public class UtilisateurController {
-    private final UtilisateurService utilisateurService;
+	private final UtilisateurService utilisateurService;
 
-    /**
-     * Constructeur pour injecter le service utilisateur.
-     *
-     * @param utilisateurService Service de gestion des utilisateurs.
-     */
-    public UtilisateurController(UtilisateurService utilisateurService) {
-        this.utilisateurService = utilisateurService;
-    }
+	/**
+	 * Constructeur pour injecter le service utilisateur.
+	 *
+	 * @param utilisateurService Service de gestion des utilisateurs.
+	 */
+	public UtilisateurController(UtilisateurService utilisateurService) {
+		this.utilisateurService = utilisateurService;
+	}
 
-    /**
-     * Récupérer tous les utilisateurs.
-     * Endpoint : GET /utilisateurs
-     *
-     * @return Liste des utilisateurs sous forme de DTO.
-     */
-    @GetMapping
-    public List<UtilisateurDTO> obtenirTousLesUtilisateurs() {
-        return utilisateurService.getAllUtilisateurs().stream()
-                .map(UtilisateurDTO::convertToDTO)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * Récupérer tous les utilisateurs.
+	 * Endpoint : GET /utilisateurs
+	 *
+	 * @return Liste des utilisateurs sous forme de DTO.
+	 */
+	@GetMapping
+	public List<UtilisateurDTO> obtenirTousLesUtilisateurs() {
+		return utilisateurService.getAllUtilisateurs().stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
 
-    /**
-     * Récupérer un utilisateur par son identifiant.
-     * Endpoint : GET /utilisateurs/{id}
-     *
-     * @param id Identifiant unique de l'utilisateur.
-     * @return DTO de l'utilisateur correspondant.
-     */
-    @GetMapping("/{id}")
-    public UtilisateurDTO obtenirUtilisateurParId(@PathVariable int id) {
-        return UtilisateurDTO.convertToDTO(utilisateurService.getUtilisateurById(id));
-    }
+	/**
+	 * Récupérer un utilisateur par son identifiant.
+	 * Endpoint : GET /utilisateurs/{id}
+	 *
+	 * @param id Identifiant unique de l'utilisateur.
+	 * @return DTO de l'utilisateur correspondant.
+	 */
+	@GetMapping("/{id}")
+	public UtilisateurDTO obtenirUtilisateurParId(@PathVariable int id) {
+		return UtilisateurDTO.convertToDTO(utilisateurService.getUtilisateurById(id));
+	}
 
-    /**
-     * Créer un nouvel utilisateur.
-     * Endpoint : POST /utilisateurs/add
-     *
-     * @param utilisateur Objet contenant les informations de l'utilisateur à créer.
-     * @return Identifiant de l'utilisateur nouvellement créé.
-     */
-    @PostMapping("/add")
-    public int creerUtilisateur(@RequestBody Utilisateur utilisateur) {
-        Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
-        return nouvelUtilisateur.getIdUtilisateur();
-    }
+	/**
+	 * Créer un nouvel utilisateur.
+	 * Endpoint : POST /utilisateurs/add
+	 *
+	 * @param utilisateur Objet contenant les informations de l'utilisateur à créer.
+	 * @return Identifiant de l'utilisateur nouvellement créé.
+	 */
+	@PostMapping("/add")
+	public int creerUtilisateur(@RequestBody Utilisateur utilisateur) {
+		Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
+		return nouvelUtilisateur.getIdUtilisateur();
+	}
 
-    /**
-     * Mettre à jour un utilisateur existant.
-     * Endpoint : PUT /utilisateurs/update/{id}
-     *
-     * @param id Identifiant de l'utilisateur à mettre à jour.
-     * @param utilisateurDetails Objet contenant les nouvelles informations de l'utilisateur.
-     * @return Objet Utilisateur mis à jour.
-     */
-    @PutMapping("/update/{id}")
-    public Utilisateur mettreAJourUtilisateur(@PathVariable int id, @RequestBody Utilisateur utilisateurDetails) {
-        return utilisateurService.updateUtilisateur(id, utilisateurDetails);
-    }
+	/**
+	 * Mettre à jour un utilisateur existant.
+	 * Endpoint : PUT /utilisateurs/update/{id}
+	 *
+	 * @param id Identifiant de l'utilisateur à mettre à jour.
+	 * @param utilisateurDetails Objet contenant les nouvelles informations de l'utilisateur.
+	 * @return Objet Utilisateur mis à jour.
+	 */
+	@PutMapping("/update/{id}")
+	public Utilisateur mettreAJourUtilisateur(@PathVariable int id, @RequestBody Utilisateur utilisateurDetails) {
+		return utilisateurService.updateUtilisateur(id, utilisateurDetails);
+	}
 
-    /**
-     * Supprimer un utilisateur.
-     * Endpoint : DELETE /utilisateurs/delete/{id}
-     *
-     * @param id Identifiant de l'utilisateur à supprimer.
-     */
-    @DeleteMapping("/delete/{id}")
-    public void supprimerUtilisateur(@PathVariable int id) {
-        utilisateurService.deleteUtilisateur(id);
-    }
+	/**
+	 * Supprimer un utilisateur.
+	 * Endpoint : DELETE /utilisateurs/delete/{id}
+	 *
+	 * @param id Identifiant de l'utilisateur à supprimer.
+	 */
+	@DeleteMapping("/delete/{id}")
+	public void supprimerUtilisateur(@PathVariable int id) {
+		utilisateurService.deleteUtilisateur(id);
+	}
 
 	/**
 	 * Récupérer tous les utilisateurs d'un rôle donné.
