@@ -94,12 +94,12 @@ public class CompteurController {
 	
 	
 	/**
-     * Récupérer les compteurs d'un utilisateur donné.
-     * Exemple : GET localhost:8080/compteurs/utilisateur/{id}
-     *
-     * @param utilisateur Objet utilisateur.
-     * @return Liste des compteurs de l'utilisateur.
-     */
+	 * Récupérer les compteurs d'un utilisateur donné.
+	 * Exemple : GET localhost:8080/compteurs/utilisateur/{id}
+	 *
+	 * @param utilisateur Objet utilisateur.
+	 * @return Liste des compteurs de l'utilisateur.
+	 */
     @GetMapping("/utilisateur/{id}")
     public List<CompteurDTO> obtenirCompteursParUtilisateur(@PathVariable Utilisateur utilisateur) {
         return compteurService.findByUtilisateur(utilisateur).stream()

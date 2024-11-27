@@ -92,11 +92,11 @@ public class DepartementController {
 	}
 	
 	/**
-     * Récupérer un département par son libellé.
-     * 
-     * @param libelle Libellé du département.
-     * @return Département correspondant au libellé.
-     */
+	 * Récupérer un département par son libellé.
+	 * 
+	 * @param libelle Libellé du département.
+	 * @return Département correspondant au libellé.
+	 */
     @GetMapping("/libelle/{libelle}")
     public DepartementDTO obtenirDepartementParLibelle(@PathVariable String libelle) {
         return DepartementDTO.convertToDTO(departementService.getDepartementByLibelle(libelle));

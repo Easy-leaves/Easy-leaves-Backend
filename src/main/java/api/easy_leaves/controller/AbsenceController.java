@@ -93,10 +93,10 @@ public class AbsenceController {
 	
 	
 	/**
-     * Récupérer toutes les absences par statut.
-     * @param statut Le statut des absences à récupérer.
-     * @return Liste des absences avec le statut donné.
-     */
+	 * Récupérer toutes les absences par statut.
+	 * @param statut Le statut des absences à récupérer.
+	 * @return Liste des absences avec le statut donné.
+	 */
     @GetMapping("/statut/{statut}")
     public List<AbsenceDTO> obtenirAbsencesParStatut(@PathVariable String statut) {
         return absenceService.getAbsencesByStatut(Statut.valueOf(statut)).stream()

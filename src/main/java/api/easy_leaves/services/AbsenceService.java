@@ -101,10 +101,10 @@ public class AbsenceService {
 	}
 	
 	/**
-     * Récupérer toutes les absences avec un statut spécifique.
-     * @param statut Le statut des absences à récupérer.
-     * @return Liste des absences avec le statut donné.
-     */
+	 * Récupérer toutes les absences avec un statut spécifique.
+	 * @param statut Le statut des absences à récupérer.
+	 * @return Liste des absences avec le statut donné.
+	 */
     public List<Absence> getAbsencesByStatut(Statut statut) {
         return absenceRepository.findByStatut(statut);
     }
