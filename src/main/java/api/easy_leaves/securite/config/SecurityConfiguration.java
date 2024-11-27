@@ -62,13 +62,24 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.csrf()
-			.disable() // Désactive la protection CSRF
-			.authorizeHttpRequests()
-			.requestMatchers("/auth/**") // Permet l'accès sans authentification aux points de terminaison /auth/**
-			.permitAll()
-			.anyRequest() // Nécessite une authentification pour toutes les autres requêtes
-			.authenticated()
-			.and()
+			.disable()
+			.authorizeHttpRequests(auth -> auth
+		            // Routes publiques accessibles sans authentification
+		            .requestMatchers("/auth/**").permitAll()
+		            
+		            // Routes accessibles uniquement à ADMIN
+		            .requestMatchers("/departements/**").hasRole("ADMINISTRATEUR")
+		            
+		            // Routes accessibles uniquement à MANAGER
+		            .requestMatchers("/absences/statut/**").hasRole("MANAGER")
+		            .requestMatchers("/absences/plage/**").hasRole("MANAGER")
+		            .requestMatchers("/absences/compte/**").hasRole("MANAGER")
+		            .requestMatchers("/compteurs/**").hasRole("MANAGER")
+		            .requestMatchers("/utilisateurs/**").hasRole("MANAGER")
+		            
+		            // Toutes les autres routes nécessitent une authentification
+		            .anyRequest().authenticated()
+		        )
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Définit une gestion de session sans état
 			.and()
