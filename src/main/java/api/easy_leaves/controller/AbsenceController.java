@@ -1,5 +1,6 @@
 package api.easy_leaves.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.easy_leaves.dto.AbsenceDTO;
+import api.easy_leaves.enums.Statut;
 import api.easy_leaves.model.Absence;
+import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.AbsenceService;
 
 /**
@@ -85,5 +89,47 @@ public class AbsenceController {
 	@DeleteMapping("/delete/{id}")
 	public void supprimerAbsence(@PathVariable int id) {
 	    absenceService.deleteAbsence(id);
+	}
+	
+	
+	/**
+	 * Récupérer toutes les absences par statut.
+	 * @param statut Le statut des absences à récupérer.
+	 * @return Liste des absences avec le statut donné.
+	 */
+	@GetMapping("/statut/{statut}")
+	public List<AbsenceDTO> obtenirAbsencesParStatut(@PathVariable String statut) {
+		return absenceService.getAbsencesByStatut(Statut.valueOf(statut)).stream()
+				.map(AbsenceDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Récupérer toutes les absences dans une plage de dates.
+	 * @param startDate Date de début de la plage.
+	 * @param endDate Date de fin de la plage.
+	 * @return Liste des absences dans la plage de dates donnée.
+	 */
+	@GetMapping("/plage/{startDate}/{endDate}")
+	public List<AbsenceDTO> obtenirAbsencesParPlage(@RequestParam String startDate, @RequestParam String endDate) {
+		// Convertir les dates reçues en objets Date (à ajuster selon votre format de date)
+		Date start = Date.valueOf(startDate);
+		Date end = Date.valueOf(endDate);
+		return absenceService.getAbsencesByDateRange(start, end).stream()
+				.map(AbsenceDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Compter le nombre d'absences pour un utilisateur et un statut donné.
+	 * @param utilisateurId L'ID de l'utilisateur pour lequel compter les absences.
+	 * @param statut Le statut des absences à compter.
+	 * @return Le nombre d'absences pour l'utilisateur et le statut donné.
+	 */
+	@GetMapping("/compte/{utilisateurId}/{statut}")
+	public Long compterAbsences(@RequestParam int utilisateurId, @RequestParam String statut) {
+		Utilisateur utilisateur = new Utilisateur(); 
+		utilisateur.setIdUtilisateur(utilisateurId);
+		return absenceService.countAbsencesByUtilisateurAndStatut(utilisateur, Statut.valueOf(statut));
 	}
 }

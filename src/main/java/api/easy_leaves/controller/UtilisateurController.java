@@ -13,80 +13,135 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.easy_leaves.dto.UtilisateurDTO;
+import api.easy_leaves.enums.Role;
+import api.easy_leaves.enums.TypeCompteur;
+import api.easy_leaves.model.Departement;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.UtilisateurService;
 
 /**
+ * Contrôleur REST pour la gestion des utilisateurs.
+ * Fournit des points d'accès pour effectuer des opérations CRUD et des recherches avancées sur les utilisateurs.
+ * 
  * @author Theo
  */
 @RestController
 @RequestMapping("/utilisateurs")
 public class UtilisateurController {
 	private final UtilisateurService utilisateurService;
-	
+
 	/**
-	 * Constructeur
-	 * @param utilisateurService
+	 * Constructeur pour injecter le service utilisateur.
+	 *
+	 * @param utilisateurService Service de gestion des utilisateurs.
 	 */
 	public UtilisateurController(UtilisateurService utilisateurService) {
-	    this.utilisateurService = utilisateurService;
+		this.utilisateurService = utilisateurService;
 	}
-	
+
 	/**
-	 * Récupérer tous les utilisateurs
-	 * localhost:8080/utilisateurs
-	 * @return Liste des utilisateurs
+	 * Récupérer tous les utilisateurs.
+	 * Endpoint : GET /utilisateurs
+	 *
+	 * @return Liste des utilisateurs sous forme de DTO.
 	 */
 	@GetMapping
 	public List<UtilisateurDTO> obtenirTousLesUtilisateurs() {
-	    return utilisateurService.getAllUtilisateurs().stream()
-	    		.map(UtilisateurDTO::convertToDTO)
-	    		.collect(Collectors.toList());
+		return utilisateurService.getAllUtilisateurs().stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
 	}
-	
+
 	/**
-	 * Récupérer un utilisateur par ID
-	 * localhost:8080/utilisateurs/{id}
-	 * @param id Identifiant de l'utilisateur
-	 * @return Utilisateur correspondant à l'ID
+	 * Récupérer un utilisateur par son identifiant.
+	 * Endpoint : GET /utilisateurs/{id}
+	 *
+	 * @param id Identifiant unique de l'utilisateur.
+	 * @return DTO de l'utilisateur correspondant.
 	 */
 	@GetMapping("/{id}")
 	public UtilisateurDTO obtenirUtilisateurParId(@PathVariable int id) {
-	    return UtilisateurDTO.convertToDTO(utilisateurService.getUtilisateurById(id));
+		return UtilisateurDTO.convertToDTO(utilisateurService.getUtilisateurById(id));
 	}
-	
+
 	/**
-	 * Créer un nouvel utilisateur
-	 * localhost:8080/utilisateurs/add
-	 * @param utilisateur Objet Utilisateur à créer
-	 * @return Utilisateur créé
+	 * Créer un nouvel utilisateur.
+	 * Endpoint : POST /utilisateurs/add
+	 *
+	 * @param utilisateur Objet contenant les informations de l'utilisateur à créer.
+	 * @return Identifiant de l'utilisateur nouvellement créé.
 	 */
 	@PostMapping("/add")
 	public int creerUtilisateur(@RequestBody Utilisateur utilisateur) {
-	    Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
-	    return nouvelUtilisateur.getIdUtilisateur();
+		Utilisateur nouvelUtilisateur = utilisateurService.createUtilisateur(utilisateur);
+		return nouvelUtilisateur.getIdUtilisateur();
 	}
-	
+
 	/**
-	 * Mettre à jour un utilisateur existant
-	 * localhost:8080/utilisateurs/update/{id}
-	 * @param id Identifiant de l'utilisateur à mettre à jour
-	 * @param utilisateurDetails Détails de la mise à jour
-	 * @return Utilisateur mis à jour
+	 * Mettre à jour un utilisateur existant.
+	 * Endpoint : PUT /utilisateurs/update/{id}
+	 *
+	 * @param id Identifiant de l'utilisateur à mettre à jour.
+	 * @param utilisateurDetails Objet contenant les nouvelles informations de l'utilisateur.
+	 * @return Objet Utilisateur mis à jour.
 	 */
 	@PutMapping("/update/{id}")
 	public Utilisateur mettreAJourUtilisateur(@PathVariable int id, @RequestBody Utilisateur utilisateurDetails) {
-	    return utilisateurService.updateUtilisateur(id, utilisateurDetails);
+		return utilisateurService.updateUtilisateur(id, utilisateurDetails);
 	}
-	
+
 	/**
-	 * Supprimer un utilisateur
-	 * localhost:8080/utilisateurs/delete/{id}
-	 * @param id Identifiant de l'utilisateur à supprimer
-	 * @return Message de confirmation
+	 * Supprimer un utilisateur.
+	 * Endpoint : DELETE /utilisateurs/delete/{id}
+	 *
+	 * @param id Identifiant de l'utilisateur à supprimer.
 	 */
 	@DeleteMapping("/delete/{id}")
 	public void supprimerUtilisateur(@PathVariable int id) {
-	    utilisateurService.deleteUtilisateur(id);
+		utilisateurService.deleteUtilisateur(id);
+	}
+
+	/**
+	 * Récupérer tous les utilisateurs d'un rôle donné.
+	 * Endpoint : GET /utilisateurs/role/{role}
+	 *
+	 * @param role Rôle des utilisateurs à rechercher.
+	 * @return Liste des utilisateurs ayant ce rôle sous forme de DTO.
+	 */
+	@GetMapping("/role/{role}")
+	public List<UtilisateurDTO> obtenirUtilisateursParRole(@PathVariable Role role) {
+		return utilisateurService.getUtilisateursByRole(role).stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Récupérer les utilisateurs d'un département donné.
+	 * Endpoint : GET /utilisateurs/departement/{departementId}
+	 *
+	 * @param departementId Identifiant du département.
+	 * @return Liste des utilisateurs du département sous forme de DTO.
+	 */
+	@GetMapping("/departement/{idDepartement}")
+	public List<UtilisateurDTO> obtenirUtilisateursParDepartement(@PathVariable int idDepartement) {
+		Departement departement = new Departement();
+		departement.setIdDepartement(idDepartement);
+
+		return utilisateurService.getUtilisateursByDepartement(departement)
+				.stream()
+				.map(UtilisateurDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Récupérer les utilisateurs ayant un type de compteur spécifique.
+	 * Endpoint : GET /utilisateurs/compteur/{typeCompteur}
+	 *
+	 * @param typeCompteur Type de compteur recherché.
+	 * @return Liste des utilisateurs avec ce type de compteur.
+	 */
+	@GetMapping("/compteur/{typeCompteur}")
+	public List<UtilisateurDTO> obtenirUtilisateursParTypeCompteur(@PathVariable TypeCompteur typeCompteur) {
+		return utilisateurService.getUtilisateursByCompteurType(typeCompteur).stream().map(UtilisateurDTO::convertToDTO).collect(Collectors.toList());
 	}
 }
