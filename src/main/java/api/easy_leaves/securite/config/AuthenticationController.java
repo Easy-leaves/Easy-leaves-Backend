@@ -1,6 +1,7 @@
 package api.easy_leaves.securite.config;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class AuthenticationController {
 	 * @param request la requête d'authentification contenant l'email et le mot de passe de l'utilisateur
 	 * @return une réponse HTTP contenant un objet {@link AuthenticationResponse} avec les informations d'authentification
 	 */
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/authenticate")
 	public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AutenticationRequest request){
 		return ResponseEntity.ok(service.authenticate(request));
