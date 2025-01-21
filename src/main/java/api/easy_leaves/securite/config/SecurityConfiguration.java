@@ -1,5 +1,7 @@
 package api.easy_leaves.securite.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Configuration de sécurité pour l'application.
@@ -63,19 +68,21 @@ public class SecurityConfiguration {
 		http
 			.csrf()
 			.disable()
+			.cors()
+			.and()
 			.authorizeHttpRequests(auth -> auth
 		            // Routes publiques accessibles sans authentification
 		            .requestMatchers("/auth/**").permitAll()
 		            
 		            // Routes accessibles uniquement à ADMIN
-		            .requestMatchers("/departements/**").hasRole("ADMINISTRATEUR")
+		            .requestMatchers("/departements/**").hasAuthority("ADMINISTRATEUR")
 		            
 		            // Routes accessibles uniquement à MANAGER
-		            .requestMatchers("/absences/statut/**").hasRole("MANAGER")
-		            .requestMatchers("/absences/plage/**").hasRole("MANAGER")
-		            .requestMatchers("/absences/compte/**").hasRole("MANAGER")
-		            .requestMatchers("/compteurs/**").hasRole("MANAGER")
-		            .requestMatchers("/utilisateurs/**").hasRole("MANAGER")
+		            .requestMatchers("/absences/statut/**").hasAuthority("MANAGER")
+		            .requestMatchers("/absences/plage/**").hasAuthority("MANAGER")
+		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
+		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
+//		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
 		            
 		            // Toutes les autres routes nécessitent une authentification
 		            .anyRequest().authenticated()
@@ -88,4 +95,19 @@ public class SecurityConfiguration {
 		return http.build(); // Retourne la chaîne de filtres configurée
 		
 	}
+	
+	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+	    System.out.println("CORS Configuration Source initialized");
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Remplacez par vos origines
+	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+	    configuration.setAllowedHeaders(List.of("*"));
+	    configuration.setAllowCredentials(true); // Autoriser l'envoi de cookies si nécessaire
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
+	}
+ 
 }
