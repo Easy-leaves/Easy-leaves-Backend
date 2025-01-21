@@ -149,8 +149,7 @@ public class AbsenceService {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
 	}
 	
-	
-	public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
+    public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
         return absenceRepository.findByUtilisateurIdUtilisateur(utilisateurId)
                 .stream()
                 .map(AbsenceDTO::convertToDTO)
