@@ -82,7 +82,8 @@ public class SecurityConfiguration {
 		            .requestMatchers("/absences/plage/**").hasAuthority("MANAGER")
 		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
 		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
-//		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
+		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
+
 		            
 		            // Toutes les autres routes nécessitent une authentification
 		            .anyRequest().authenticated()
