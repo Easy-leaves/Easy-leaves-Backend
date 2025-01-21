@@ -164,6 +164,7 @@ public class AbsenceService {
 	public Long countAbsencesByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut) {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
 	}
+	}
 	
 	/**
      * Récupère toutes les absences associées à un utilisateur spécifique, identifiées par son identifiant.
