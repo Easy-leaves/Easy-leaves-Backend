@@ -1,5 +1,6 @@
 package api.easy_leaves.services;
 
+import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
 import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.errors.IncoherenceDateError;
@@ -128,4 +129,11 @@ public class AbsenceService {
 	public Long countAbsencesByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut) {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
 	}
+	
+    public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
+        return absenceRepository.findByUtilisateurIdUtilisateur(utilisateurId)
+                .stream()
+                .map(AbsenceDTO::convertToDTO)
+                .toList();
+    }
 }

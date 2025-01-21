@@ -97,7 +97,6 @@ public class SecurityConfiguration {
 		
 	}
 	
-	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 	    System.out.println("CORS Configuration Source initialized");
@@ -110,5 +109,4 @@ public class SecurityConfiguration {
 	    source.registerCorsConfiguration("/**", configuration);
 	    return source;
 	}
- 
 }
