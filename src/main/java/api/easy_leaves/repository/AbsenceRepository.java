@@ -29,7 +29,7 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>{
 	 * @param utilisateurId
 	 * @return
 	 */
-	List<Absence> findByUtilisateur(Utilisateur utilisateur);
+	List<Absence> findByUtilisateurIdUtilisateur(int utilisateurId);
 	
 	/**
 	 * Trouver les absences dans une plage de dates
