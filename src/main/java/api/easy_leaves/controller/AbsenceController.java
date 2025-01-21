@@ -167,7 +167,4 @@ public class AbsenceController {
     public List<AbsenceDTO> getAbsencesByUtilisateurId(@PathVariable int id) {
         return absenceService.getAbsencesByUtilisateurId(id);
     }
-	
-
-	
 }
