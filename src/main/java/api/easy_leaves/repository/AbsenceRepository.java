@@ -31,6 +31,7 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>{
 	 */
 	List<Absence> findByUtilisateurIdUtilisateur(int utilisateurId);
 	
+	
 	/**
 	 * Trouver les absences dans une plage de dates
 	 * @param startDate
@@ -54,4 +55,6 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>{
 	 * @return
 	 */
 	Long countByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut);
+	
+	
 }

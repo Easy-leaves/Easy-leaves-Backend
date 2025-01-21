@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import api.easy_leaves.enums.Role;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class Utilisateur implements UserDetails{
 	/** idUtilisateur */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_utilisateur")
 	private int idUtilisateur;
 	
 	/** nom */

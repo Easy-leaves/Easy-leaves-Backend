@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,7 @@ import api.easy_leaves.services.UtilisateurService;
  * @author Driss
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200") 
 @RequestMapping("/absences")
 public class AbsenceController {
 	private final AbsenceService absenceService;
@@ -39,6 +41,11 @@ public class AbsenceController {
 		this.absenceService = absenceService;
 		this.utilisateurService = utilisateurService;
 	}
+	
+	  @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+	    public ResponseEntity<?> handleOptions() {
+	        return ResponseEntity.ok().build();
+	    }
 
 	/**
 	 * Récupérer toutes les absences
@@ -59,7 +66,7 @@ public class AbsenceController {
 	 * @return Absence correspondant à l'ID
 	 */
 	@GetMapping("/{id}")
-	public AbsenceDTO obtenirAbsenceParId(@PathVariable int id) {
+	public AbsenceDTO obtenirAbsenceParId(@PathVariable("id") int id) {
 		return AbsenceDTO.convertToDTO(absenceService.getAbsenceById(id));
 	}
 	
@@ -162,4 +169,19 @@ public class AbsenceController {
     public List<AbsenceDTO> getAbsencesByUtilisateurId(@PathVariable int id) {
         return absenceService.getAbsencesByUtilisateurId(id);
     }
+	
+	/**
+	 * Récupérer toutes les absences d'un utilisateur donné.
+	 * localhost:8080/absences/utilisateur/{utilisateurId}
+	 * @param userId Identifiant de l'utilisateur
+	 * @return Liste des absences de cet utilisateur
+	 */
+	@GetMapping("/utilisateur/{utilisateurId}")
+	public List<AbsenceDTO> obtenirAbsencesParUtilisateur(@PathVariable("utilisateurId") int utilisateurId) {
+	    return absenceService.getAbsencesByUser(utilisateurId).stream()
+	            .map(AbsenceDTO::convertToDTO)
+	            .collect(Collectors.toList());
+	}
+
+	
 }

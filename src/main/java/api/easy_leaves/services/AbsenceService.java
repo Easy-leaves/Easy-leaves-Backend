@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +35,11 @@ public class AbsenceService {
 	 * @return Liste des absences disponibles.
 	 */
 	public List<Absence> getAllAbsences() {
-	    return absenceRepository.findAll();
+	    List<Absence> absences = absenceRepository.findAll();
+	    System.out.println("Absences trouvées : " + absences.size());
+	    return absences;
 	}
+
 	
 	/**
 	 * Récupérer une absence par son identifiant.
@@ -143,6 +147,7 @@ public class AbsenceService {
 	 */
 	public Long countAbsencesByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut) {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
+	}
 	}
 	
     public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
