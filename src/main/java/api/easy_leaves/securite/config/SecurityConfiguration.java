@@ -68,14 +68,14 @@ public class SecurityConfiguration {
 		            .requestMatchers("/auth/**").permitAll()
 		            
 		            // Routes accessibles uniquement à ADMIN
-		            .requestMatchers("/departements/**").hasRole("ADMINISTRATEUR")
+		            .requestMatchers("/departements/**").hasAuthority("ADMINISTRATEUR")
 		            
 		            // Routes accessibles uniquement à MANAGER
-		            .requestMatchers("/absences/statut/**").hasRole("MANAGER")
-		            .requestMatchers("/absences/plage/**").hasRole("MANAGER")
-		            .requestMatchers("/absences/compte/**").hasRole("MANAGER")
-		            .requestMatchers("/compteurs/**").hasRole("MANAGER")
-		            .requestMatchers("/utilisateurs/**").hasRole("MANAGER")
+		            .requestMatchers("/absences/statut/**").hasAuthority("MANAGER")
+		            .requestMatchers("/absences/plage/**").hasAuthority("MANAGER")
+		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
+		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
+		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
 		            
 		            // Toutes les autres routes nécessitent une authentification
 		            .anyRequest().authenticated()
