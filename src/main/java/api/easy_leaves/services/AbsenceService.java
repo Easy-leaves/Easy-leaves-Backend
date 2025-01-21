@@ -130,12 +130,7 @@ public class AbsenceService {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
 	}
 	
-<<<<<<< Updated upstream
     public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
-=======
-	
-	public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
->>>>>>> Stashed changes
         return absenceRepository.findByUtilisateurIdUtilisateur(utilisateurId)
                 .stream()
                 .map(AbsenceDTO::convertToDTO)
