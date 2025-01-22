@@ -79,12 +79,12 @@ public class SecurityConfiguration {
 		            
 		            // Routes accessibles uniquement à MANAGER
 		            .requestMatchers("/absences/statut/**").hasAuthority("MANAGER")
+		            .requestMatchers("/absences/update/**").hasAuthority("MANAGER")
 		            .requestMatchers("/absences/plage/**").hasAuthority("MANAGER")
 		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
 		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
 		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
 
-		            
 		            // Toutes les autres routes nécessitent une authentification
 		            .anyRequest().authenticated()
 		        )
@@ -101,7 +101,7 @@ public class SecurityConfiguration {
 	public CorsConfigurationSource corsConfigurationSource() {
 	    System.out.println("CORS Configuration Source initialized");
 	    CorsConfiguration configuration = new CorsConfiguration();
-	    configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Remplacez par vos origines
+	    configuration.setAllowedOrigins(List.of("http://localhost:4200"));
 	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 	    configuration.setAllowedHeaders(List.of("*"));
 	    configuration.setAllowCredentials(true); // Autoriser l'envoi de cookies si nécessaire

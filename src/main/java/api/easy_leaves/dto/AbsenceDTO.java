@@ -45,6 +45,11 @@ public class AbsenceDTO {
 	 * The user identifier linked to this absence.
 	 */	
 	private int utilisateurId;
+	
+	/**
+	 * The user name of the user linked to this absence.
+	 */	
+	private String utilisateurNom;
 
 	/** 
 	 * The constructor of an absence.
@@ -182,6 +187,22 @@ public class AbsenceDTO {
 	 */
 	public void setUtilisateurId(int utilisateurId) {
 		this.utilisateurId = utilisateurId;
+	}
+	
+	/**
+	 * Getter
+	 * @return the user id linked to this absence.
+	 */
+	public String getUtilisateurNom() {
+		return utilisateurNom;
+	}
+
+	/**
+	 * Setter
+	 * @param utilisateur the utilisateur id to linked the absence with.
+	 */
+	public void setUtilisateurNom(String utilisateurNom) {
+		this.utilisateurNom = utilisateurNom;
 	}
 	
 	/**
