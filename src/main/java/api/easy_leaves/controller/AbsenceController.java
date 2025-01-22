@@ -1,4 +1,4 @@
-package api.easy_leaves.controller;
+	package api.easy_leaves.controller;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,6 +20,7 @@ import api.easy_leaves.enums.Statut;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.AbsenceService;
+import api.easy_leaves.services.UtilisateurService;
 
 /**
  * @author Driss
@@ -28,13 +29,15 @@ import api.easy_leaves.services.AbsenceService;
 @RequestMapping("/absences")
 public class AbsenceController {
 	private final AbsenceService absenceService;
+	private final UtilisateurService utilisateurService;
 
 	/**
 	 * Constructeur
 	 * @param absenceService
 	 */
-	public AbsenceController(AbsenceService absenceService) {
+	public AbsenceController(AbsenceService absenceService, UtilisateurService utilisateurService) {
 		this.absenceService = absenceService;
+		this.utilisateurService = utilisateurService;
 	}
 
 	/**
@@ -82,6 +85,17 @@ public class AbsenceController {
 	}
 	
 	/**
+	 * Mettre à jour le statut d'une absence existante
+	 * localhost:8080/absences/update/{id}/statut
+	 * @param id Identifiant de l'absence à mettre à jour
+	 * @param absenceStatut le statut à mettre a jour
+	 */
+	@PutMapping("/update/{id}/statut")
+	public Absence mettreAJourStatutAbsence(@PathVariable int id, @RequestBody String absenceStatut) {
+	    return absenceService.updateAbsenceStatut(id, Statut.valueOf(absenceStatut));
+	}
+	
+	/**
 	 * Supprimer une absence
 	 * localhost:8080/absences/delete/{id}
 	 * @param id Identifiant de l'absence à supprimer
@@ -101,7 +115,16 @@ public class AbsenceController {
 	@GetMapping("/statut/{statut}")
 	public List<AbsenceDTO> obtenirAbsencesParStatut(@PathVariable String statut) {
 		return absenceService.getAbsencesByStatut(Statut.valueOf(statut)).stream()
-				.map(AbsenceDTO::convertToDTO)
+				.map(absence -> {
+					AbsenceDTO dto = AbsenceDTO.convertToDTO(absence);
+					
+					Utilisateur utilisateur = utilisateurService.getUtilisateurById(dto.getUtilisateurId());
+					if(utilisateur != null) {
+						dto.setUtilisateurNom(utilisateur.getNom());
+					}
+		                
+		            return dto;
+				})
 				.collect(Collectors.toList());
 	}
 

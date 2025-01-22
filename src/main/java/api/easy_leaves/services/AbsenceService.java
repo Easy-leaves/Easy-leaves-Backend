@@ -93,6 +93,21 @@ public class AbsenceService {
 	}
 	
 	/**
+	 * Mettre à jour le statut d'une absence existante.
+	 * 
+	 * @param id Identifiant de l'absence à mettre à jour.
+	 * @param absenceStatut Statut à mettre à jour.
+	 * @return L'absence mise à jour.
+	 * @throws RuntimeException Si l'absence à mettre à jour n'existe pas.
+	 * @throws IncoherenceDateError Si les données de date de la mise à jour ne sont pas cohérentes.
+	 */
+	public Absence updateAbsenceStatut(int id, Statut absenceStatut) {		
+		Absence absence = getAbsenceById(id);
+		absence.setStatut(absenceStatut);
+		return absenceRepository.save(absence);
+	}
+	
+	/**
 	 * Supprimer une absence.
 	 * 
 	 * @param id Identifiant de l'absence à supprimer.
