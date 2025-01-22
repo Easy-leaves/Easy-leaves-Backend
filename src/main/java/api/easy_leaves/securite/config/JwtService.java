@@ -9,6 +9,7 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import api.easy_leaves.model.Utilisateur;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -53,30 +54,19 @@ public class JwtService {
 	}
 	
 	/**
-	 * Génère un jeton JWT pour un utilisateur donné.
-	 * @param userDetails les détails de l'utilisateur pour lequel générer le jeton
-	 * @return un jeton JWT généré pour l'utilisateur
-	 */
-	public String generateToken(UserDetails userDetails) {
-		return generateToken(new HashMap<>(), userDetails);
-	}
-	
-	/**
 	 * Génère un jeton JWT avec des réclamations supplémentaires pour un utilisateur donné.
 	 * @param extraClaims des réclamations supplémentaires à inclure dans le jeton
 	 * @param userDetails les détails de l'utilisateur pour lequel générer le jeton
 	 * @return un jeton JWT généré avec les réclamations supplémentaires
 	 */
-	public String generateToken(Map<String, Object> exteraClaims, UserDetails userDetails) {
-		
-		return Jwts
-				.builder()
-				.setClaims(exteraClaims)
-				.setSubject(userDetails.getUsername())
-				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-				.signWith(getSignInKey(), SignatureAlgorithm.HS256)
-				.compact();
+	public String generateToken(Map<String, Object> extraClaims, Utilisateur user) {
+	    return Jwts.builder()
+	            .setClaims(extraClaims)
+	            .setSubject(user.getEmail()) // Assuming email is the username
+	            .setIssuedAt(new Date(System.currentTimeMillis()))
+	            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+	            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+	            .compact();
 	}
 	
 	/**
