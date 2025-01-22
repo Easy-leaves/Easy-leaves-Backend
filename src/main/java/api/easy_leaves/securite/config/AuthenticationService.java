@@ -1,5 +1,8 @@
 package api.easy_leaves.securite.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,18 +64,25 @@ public class AuthenticationService {
 	 * @return un objet {@link AuthenticationResponse} contenant le jeton JWT généré
 	 */
 	public AuthenticationResponse authenticate(AutenticationRequest request) {
-		// Authentifie l'utilisateur avec ses informations d'identification
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-		);
-		// Récupère l'utilisateur à partir de la base de données
-		var user = repository.findByEmail(request.getEmail()).orElseThrow();
-		// Génère le jeton JWT pour l'utilisateur
-		var jwtToken = jwtService.generateToken(user);
-		// Retourne la réponse d'authentification contenant le jeton
-		return AuthenticationResponse
-				.builder()
-				.token(jwtToken)
-				.build();
+	    // Authentifie l'utilisateur avec ses informations d'identification
+	    authenticationManager.authenticate(
+	            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+	    );
+	    // Récupère l'utilisateur à partir de la base de données
+	    var user = repository.findByEmail(request.getEmail()).orElseThrow();
+	    
+	    // Ajouter des informations supplémentaires dans les réclamations
+	    Map<String, Object> extraClaims = new HashMap<>();
+	    extraClaims.put("id", user.getIdUtilisateur());
+	    extraClaims.put("role", user.getRole());
+
+	    // Génère le jeton JWT pour l'utilisateur avec les réclamations supplémentaires
+	    var jwtToken = jwtService.generateToken(extraClaims, user);
+
+	    // Retourne la réponse d'authentification contenant le jeton
+	    return AuthenticationResponse
+	            .builder()
+	            .token(jwtToken)
+	            .build();
 	}
 }
