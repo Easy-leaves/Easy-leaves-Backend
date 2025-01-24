@@ -175,18 +175,6 @@ public class AbsenceController {
         return absenceService.getAbsencesByUtilisateurId(id);
     }
 	
-	/**
-	 * Récupérer toutes les absences d'un utilisateur donné.
-	 * localhost:8080/absences/utilisateur/{utilisateurId}
-	 * @param userId Identifiant de l'utilisateur
-	 * @return Liste des absences de cet utilisateur
-	 */
-	@GetMapping("/utilisateur/{utilisateurId}")
-	public List<AbsenceDTO> obtenirAbsencesParUtilisateur(@PathVariable("utilisateurId") int utilisateurId) {
-	    return absenceService.getAbsencesByUser(utilisateurId).stream()
-	            .map(AbsenceDTO::convertToDTO)
-	            .collect(Collectors.toList());
-	}
 
 	
 }
