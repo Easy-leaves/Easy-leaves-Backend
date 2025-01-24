@@ -77,6 +77,8 @@ public class SecurityConfiguration {
 		            // Routes accessibles uniquement à ADMIN
 		            .requestMatchers("/departements/**").hasAuthority("ADMINISTRATEUR")
 		            
+
+		            
 		            // Routes accessibles uniquement à MANAGER
 		            .requestMatchers("/absences/statut/**").hasAuthority("MANAGER")
 		            .requestMatchers("/absences/update/**").hasAuthority("MANAGER")
