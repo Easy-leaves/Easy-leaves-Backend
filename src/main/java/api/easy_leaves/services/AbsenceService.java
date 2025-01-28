@@ -45,7 +45,6 @@ public class AbsenceService {
 	    System.out.println("Absences trouvées : " + absences.size());
 	    return absences;
 	}
-
 	
 	/**
 	 * Récupérer une absence par son identifiant.
@@ -65,6 +64,10 @@ public class AbsenceService {
 	 * @return L'absence nouvellement créée.
 	 */
 	public Absence createAbsence(Absence absence) {
+		 if (absence.getStatut() == null) {
+		        absence.setStatut(Statut.EN_ATTENTE_VALIDATION); 
+		    }
+		 
 	    return absenceRepository.save(absence);
 	}
 	

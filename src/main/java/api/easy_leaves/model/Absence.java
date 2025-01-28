@@ -42,7 +42,7 @@ public class Absence {
 	
 	/** utilisateursAbsences */	
 	@ManyToOne
-	@JoinColumn(name = "absenceUtilisateur")
+	@JoinColumn(name = "absence_utilisateur")
 	@Nullable
 	private Utilisateur utilisateur;
 	
