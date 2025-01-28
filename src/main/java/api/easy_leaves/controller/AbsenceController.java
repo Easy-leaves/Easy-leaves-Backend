@@ -162,6 +162,13 @@ public class AbsenceController {
 		return absenceService.countAbsencesByUtilisateurAndStatut(utilisateur, Statut.valueOf(statut));
 	}
 	
+	/**
+     * Récupérer toutes les absences associées à un utilisateur spécifique par son identifiant.
+     * Les absences sont converties en objets DTO (Data Transfer Object) pour faciliter le transfert des données.
+     *
+     * @param id L'identifiant de l'utilisateur pour lequel récupérer les absences.
+     * @return Une liste d'objets {@link AbsenceDTO} représentant les absences de l'utilisateur spécifié.
+     */
 	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/utilisateur/{id}")
     public List<AbsenceDTO> getAbsencesByUtilisateurId(@PathVariable int id) {
