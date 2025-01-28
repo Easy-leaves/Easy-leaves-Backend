@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
+import api.easy_leaves.errors.IncoherenceDateError;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.AbsenceService;
@@ -27,7 +31,7 @@ import api.easy_leaves.services.UtilisateurService;
  * @author Driss
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200") 
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @RequestMapping("/absences")
 public class AbsenceController {
 	private final AbsenceService absenceService;
@@ -40,9 +44,7 @@ public class AbsenceController {
 	public AbsenceController(AbsenceService absenceService, UtilisateurService utilisateurService) {
 		this.absenceService = absenceService;
 		this.utilisateurService = utilisateurService;
-	}
-	
-	 
+	}	 
 
 	/**
 	 * Récupérer toutes les absences
@@ -74,7 +76,8 @@ public class AbsenceController {
 	 */
 	@PostMapping("/add")
 	public Absence creerAbsence(@RequestBody Absence absence) {
-		System.out.println("Nouvelle absence reçue : " + absence);
+		System.out.println("Nouvelle absence reçue : " + absence);		
+		System.out.println("Utilisateur associé à l'absence : " + absence.getUtilisateur());
 	    return absenceService.createAbsence(absence);
 	}
 	
@@ -85,8 +88,13 @@ public class AbsenceController {
 	 * @param absenceDetails Détails de la mise à jour
 	 */
 	@PutMapping("/update/{id}")
-	public Absence mettreAJourAbsence(@PathVariable int id, @RequestBody Absence absenceDetails) {
-	    return absenceService.updateAbsence(id, absenceDetails);
+	public ResponseEntity<?> mettreAJourAbsence(@PathVariable int id, @RequestBody Absence absenceDetails) {
+		try {
+	        Absence updatedAbsence = absenceService.updateAbsence(id, absenceDetails);
+	        return ResponseEntity.ok(updatedAbsence);
+	    } catch (IncoherenceDateError e) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	    }
 	}
 	
 	/**
@@ -98,7 +106,7 @@ public class AbsenceController {
 	@PutMapping("/update/{id}/statut")
 	public Absence mettreAJourStatutAbsence(@PathVariable int id, @RequestBody String absenceStatut) {
 	    return absenceService.updateAbsenceStatut(id, Statut.valueOf(absenceStatut));
-	}
+	}	
 	
 	/**
 	 * Supprimer une absence
@@ -109,8 +117,7 @@ public class AbsenceController {
 	@DeleteMapping("/delete/{id}")
 	public void supprimerAbsence(@PathVariable int id) {
 	    absenceService.deleteAbsence(id);
-	}
-	
+	}	
 	
 	/**
 	 * Récupérer toutes les absences par statut.
@@ -173,8 +180,5 @@ public class AbsenceController {
     @GetMapping("/utilisateur/{id}")
     public List<AbsenceDTO> getAbsencesByUtilisateurId(@PathVariable int id) {
         return absenceService.getAbsencesByUtilisateurId(id);
-    }
-	
-
-	
+    }	
 }
