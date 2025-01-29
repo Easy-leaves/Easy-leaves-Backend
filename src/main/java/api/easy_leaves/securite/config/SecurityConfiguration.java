@@ -99,6 +99,12 @@ public class SecurityConfiguration {
 		
 	}
 	
+	 /**
+     * Configure les règles de CORS (Cross-Origin Resource Sharing) pour l'application.
+     * Permet de définir les origines, méthodes, en-têtes autorisés et l'envoi de cookies.
+     *
+     * @return une source de configuration CORS.
+     */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 	    System.out.println("CORS Configuration Source initialized");

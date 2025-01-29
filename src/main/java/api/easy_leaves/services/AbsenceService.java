@@ -149,6 +149,13 @@ public class AbsenceService {
 		return absenceRepository.countByUtilisateurAndStatut(utilisateur, statut);
 	}
 	
+	/**
+     * Récupère toutes les absences associées à un utilisateur spécifique, identifiées par son identifiant.
+     * Les absences sont converties en objets DTO (Data Transfer Object) pour simplifier le transfert des données.
+     *
+     * @param utilisateurId L'identifiant unique de l'utilisateur.
+     * @return Une liste d'objets {@link AbsenceDTO} représentant les absences de l'utilisateur.
+     */
     public List<AbsenceDTO> getAbsencesByUtilisateurId(int utilisateurId) {
         return absenceRepository.findByUtilisateurIdUtilisateur(utilisateurId)
                 .stream()

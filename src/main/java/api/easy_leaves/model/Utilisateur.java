@@ -205,36 +205,67 @@ public class Utilisateur implements UserDetails{
 		this.role = role;
 	}
 
+	/** Method
+	 * @param motDePasse
+	 */
 	public void setPassword(String motDePasse) {
 		this.mdp = motDePasse;
 	}
 
+	/**
+     * Retourne la liste des autorisations accordées à l'utilisateur.
+     * Cette méthode est utilisée par Spring Security pour déterminer les rôles et permissions de l'utilisateur.
+     * 
+     * @return Une collection d'objets {@link GrantedAuthority} représentant les rôles de l'utilisateur.
+     */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
 	
+	/** Method
+	 * @return the mdp
+	 */
 	public String getMdp() {
 		return mdp;
 	}
 
+	/** Method
+	 * @param mdp
+	 */
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return mdp;
-	}
+	/**
+     * Retourne le mot de passe de l'utilisateur.
+     * Cette méthode est utilisée par Spring Security pour la gestion de l'authentification.
+     * 
+     * @return Le mot de passe de l'utilisateur.
+     */
+    @Override
+    public String getPassword() {
+        return mdp;
+    }
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return email;
-	}
+    /**
+     * Retourne le nom d'utilisateur de l'utilisateur.
+     * Cette méthode est utilisée par Spring Security pour l'authentification.
+     * 
+     * @return L'email de l'utilisateur qui sert de nom d'utilisateur.
+     */
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de l'objet {@link Utilisateur}.
+     * Cette méthode fournit un résumé complet des informations de l'utilisateur.
+     * 
+     * @return Une chaîne contenant toutes les informations de l'utilisateur.
+     */
 	@Override
 	public String toString() {
 		return "Utilisateur [idUtilisateur=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", email="
