@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
+import api.easy_leaves.enums.TypeAbsence;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.AbsenceService;
@@ -128,6 +129,21 @@ public class AbsenceController {
 						dto.setUtilisateurNom(utilisateur.getNom());
 					}
 		                
+		            return dto;
+				})
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Récupérer toutes les absences par statut.
+	 * @param statut Le statut des absences à récupérer.
+	 * @return Liste des absences avec le statut donné.
+	 */
+	@GetMapping("/type/{type}")
+	public List<AbsenceDTO> obtenirAbsencesParType(@PathVariable String type) {
+		return absenceService.getAbsencesByType(TypeAbsence.valueOf(type)).stream()
+				.map(absence -> {
+					AbsenceDTO dto = AbsenceDTO.convertToDTO(absence);		                
 		            return dto;
 				})
 				.collect(Collectors.toList());

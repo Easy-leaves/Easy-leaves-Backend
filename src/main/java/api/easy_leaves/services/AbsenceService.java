@@ -2,6 +2,7 @@ package api.easy_leaves.services;
 
 import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
+import api.easy_leaves.enums.TypeAbsence;
 import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.errors.IncoherenceDateError;
 
@@ -127,6 +128,15 @@ public class AbsenceService {
 	 */
 	public List<Absence> getAbsencesByStatut(Statut statut) {
 		return absenceRepository.findByStatut(statut);
+	}
+	
+	/**
+	 * Récupérer toutes les absences avec un type spécifique.
+	 * @param type Le type des absences à récupérer.
+	 * @return Liste des absences avec le type donné.
+	 */
+	public List<Absence> getAbsencesByType(TypeAbsence type) {
+		return absenceRepository.findByType(type);
 	}
 
 	/**

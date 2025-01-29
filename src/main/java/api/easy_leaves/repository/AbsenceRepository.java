@@ -25,6 +25,13 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>{
 	List<Absence> findByStatut(Statut statut);
 	
 	/**
+	 * Trouver toutes les absences par type
+	 * @param type
+	 * @return
+	 */
+	List<Absence> findByType(TypeAbsence type);
+	
+	/**
 	 * Trouver toutes les absences d'un utilisateur donné
 	 * @param utilisateurId
 	 * @return
