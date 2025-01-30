@@ -74,7 +74,7 @@ public class AbsenceController {
 	 * localhost:8080/absences/add
 	 * @param absence Objet Absence à créer
 	 */
-	@PreAuthorize("hasAuthority('MANAGER')")
+	@PreAuthorize("hasAnyAuthority('MANAGER', 'EMPLOYE', 'ADMINISTRATEUR')")
 	@PostMapping("/add")
 	public Absence creerAbsence(@RequestBody Absence absence) {
 		System.out.println("Nouvelle absence reçue : " + absence);		
