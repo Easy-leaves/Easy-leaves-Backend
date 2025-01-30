@@ -86,7 +86,9 @@ public class SecurityConfiguration {
 		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
 		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
 		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
-		            .requestMatchers("/absences/add").hasAuthority("MANAGER")
+		            
+		            .requestMatchers("/absences/add").hasAnyAuthority("MANAGER", "EMPLOYE", "ADMINISTRATEUR")
+
 
 
 
