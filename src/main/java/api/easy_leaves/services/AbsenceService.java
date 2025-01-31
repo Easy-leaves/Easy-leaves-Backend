@@ -13,7 +13,12 @@ import api.easy_leaves.repository.AbsenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +68,7 @@ public class AbsenceService {
 	    return absenceRepository.save(absence);
 	}
 	
+
 	/**
 	 * Mettre à jour une absence existante.
 	 * 
@@ -171,5 +177,25 @@ public class AbsenceService {
                 .stream()
                 .map(AbsenceDTO::convertToDTO)
                 .toList();
+    }
+    
+    public List<Absence> getRTTEmployeurByYear(int year) {
+        List<Absence> rttList = absenceRepository.findByTypeAndYear(TypeAbsence.RTT_EMPLOYEUR, year);
+        return rttList;
+    }
+    
+    public long countWorkingDays(LocalDate startDate, LocalDate endDate) {
+        long workingDays = 0;
+        LocalDate date = startDate;
+        
+        while (!date.isAfter(endDate)) {
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {
+                workingDays++;
+            }
+            date = date.plusDays(1);
+        }
+
+        return workingDays;
     }
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import api.easy_leaves.enums.Statut;
@@ -63,5 +65,16 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer>{
 	 */
 	Long countByUtilisateurAndStatut(Utilisateur utilisateur, Statut statut);
 	
-	
+	@Query("SELECT COUNT(a) FROM Absence a WHERE a.type = :type AND YEAR(a.dateDebut) = :year")
+	Long countByTypeAndYear(@Param("type") TypeAbsence type, @Param("year") int year);
+
+	/**
+	 * 
+	 * @param rttEmployeur
+	 * @param year
+	 * @return
+	 */
+	@Query("SELECT a FROM Absence a WHERE a.type = :type AND YEAR(a.dateDebut) = :year")
+	List<Absence> findByTypeAndYear(@Param("type") TypeAbsence type, @Param("year") int year);
+
 }
