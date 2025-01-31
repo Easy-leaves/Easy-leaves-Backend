@@ -111,7 +111,7 @@ public class AbsenceController {
 	@PutMapping("/update/{id}/statut")
 	public Absence mettreAJourStatutAbsence(@PathVariable int id, @RequestBody String absenceStatut) {
 	    return absenceService.updateAbsenceStatut(id, Statut.valueOf(absenceStatut));
-	}	
+	}
 	
 	/**
 	 * Supprimer une absence
@@ -122,7 +122,7 @@ public class AbsenceController {
 	@DeleteMapping("/delete/{id}")
 	public void supprimerAbsence(@PathVariable int id) {
 	    absenceService.deleteAbsence(id);
-	}	
+	}
 	
 	/**
 	 * Récupérer toutes les absences par statut.

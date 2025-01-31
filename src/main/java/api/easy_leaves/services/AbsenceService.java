@@ -64,11 +64,11 @@ public class AbsenceService {
 	 * @return L'absence nouvellement créée.
 	 */
 	public Absence createAbsence(Absence absence) {
-		 if (absence.getStatut() == null) {
-		        absence.setStatut(Statut.EN_ATTENTE_VALIDATION); 
-		    }
+		if (absence.getStatut() == null) {
+		    absence.setStatut(Statut.EN_ATTENTE_VALIDATION); 
+		}
 		 
-	    return absenceRepository.save(absence);
+		return absenceRepository.save(absence);
 	}
 	
 
