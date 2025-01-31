@@ -75,8 +75,7 @@ public class SecurityConfiguration {
 		            .requestMatchers("/auth/**").permitAll()
 		            
 		            // Routes accessibles uniquement à ADMIN
-		            .requestMatchers("/departements/**").hasAuthority("ADMINISTRATEUR")
-		            
+		            .requestMatchers("/departements/**").hasAuthority("ADMINISTRATEUR")        
 
 		            
 		            // Routes accessibles uniquement à MANAGER
@@ -85,7 +84,7 @@ public class SecurityConfiguration {
 		            .requestMatchers("/absences/plage/**").hasAuthority("MANAGER")
 		            .requestMatchers("/absences/compte/**").hasAuthority("MANAGER")
 		            .requestMatchers("/compteurs/**").hasAuthority("MANAGER")
-		            .requestMatchers("/utilisateurs/**").hasAuthority("MANAGER")
+		            .requestMatchers("/utilisateurs/**").hasAnyAuthority("MANAGER", "EMPLOYE", "ADMINISTRATEUR")
 		            
 		            .requestMatchers("/absences/add").hasAnyAuthority("MANAGER", "EMPLOYE", "ADMINISTRATEUR")
 
