@@ -2,6 +2,7 @@ package api.easy_leaves.services;
 
 import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
+import api.easy_leaves.enums.TypeAbsence;
 import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.errors.IncoherenceDateError;
 
@@ -12,7 +13,12 @@ import api.easy_leaves.repository.AbsenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -58,13 +64,14 @@ public class AbsenceService {
 	 * @return L'absence nouvellement créée.
 	 */
 	public Absence createAbsence(Absence absence) {
-		 if (absence.getStatut() == null) {
-		        absence.setStatut(Statut.EN_ATTENTE_VALIDATION); 
-		    }
+		if (absence.getStatut() == null) {
+		    absence.setStatut(Statut.EN_ATTENTE_VALIDATION); 
+		}
 		 
-	    return absenceRepository.save(absence);
+		return absenceRepository.save(absence);
 	}
 	
+
 	/**
 	 * Mettre à jour une absence existante.
 	 * 
@@ -131,6 +138,15 @@ public class AbsenceService {
 	public List<Absence> getAbsencesByStatut(Statut statut) {
 		return absenceRepository.findByStatut(statut);
 	}
+	
+	/**
+	 * Récupérer toutes les absences avec un type spécifique.
+	 * @param type Le type des absences à récupérer.
+	 * @return Liste des absences avec le type donné.
+	 */
+	public List<Absence> getAbsencesByType(TypeAbsence type) {
+		return absenceRepository.findByType(type);
+	}
 
 	/**
 	 * Récupérer toutes les absences dans une plage de dates.
@@ -164,5 +180,25 @@ public class AbsenceService {
                 .stream()
                 .map(AbsenceDTO::convertToDTO)
                 .toList();
+    }
+    
+    public List<Absence> getRTTEmployeurByYear(int year) {
+        List<Absence> rttList = absenceRepository.findByTypeAndYear(TypeAbsence.RTT_EMPLOYEUR, year);
+        return rttList;
+    }
+    
+    public long countWorkingDays(LocalDate startDate, LocalDate endDate) {
+        long workingDays = 0;
+        LocalDate date = startDate;
+        
+        while (!date.isAfter(endDate)) {
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {
+                workingDays++;
+            }
+            date = date.plusDays(1);
+        }
+
+        return workingDays;
     }
 }

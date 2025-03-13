@@ -21,6 +21,7 @@ public enum TypeAbsence {
     RTT_EMPLOYE,
     CONGE_PAYE,
     CONGE_SANS_SOLDE,
+    FERIE,
     AUTRE
 }
 

@@ -1,6 +1,8 @@
 	package api.easy_leaves.controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import api.easy_leaves.dto.AbsenceDTO;
 import api.easy_leaves.enums.Statut;
 import api.easy_leaves.errors.IncoherenceDateError;
+import api.easy_leaves.enums.TypeAbsence;
+import api.easy_leaves.errors.DataBaseError;
 import api.easy_leaves.model.Absence;
 import api.easy_leaves.model.Utilisateur;
 import api.easy_leaves.services.AbsenceService;
@@ -118,7 +122,7 @@ public class AbsenceController {
 	@DeleteMapping("/delete/{id}")
 	public void supprimerAbsence(@PathVariable int id) {
 	    absenceService.deleteAbsence(id);
-	}	
+	}
 	
 	/**
 	 * Récupérer toutes les absences par statut.
@@ -136,6 +140,21 @@ public class AbsenceController {
 						dto.setUtilisateurNom(utilisateur.getNom());
 					}
 		                
+		            return dto;
+				})
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Récupérer toutes les absences par statut.
+	 * @param statut Le statut des absences à récupérer.
+	 * @return Liste des absences avec le statut donné.
+	 */
+	@GetMapping("/type/{type}")
+	public List<AbsenceDTO> obtenirAbsencesParType(@PathVariable String type) {
+		return absenceService.getAbsencesByType(TypeAbsence.valueOf(type)).stream()
+				.map(absence -> {
+					AbsenceDTO dto = AbsenceDTO.convertToDTO(absence);		                
 		            return dto;
 				})
 				.collect(Collectors.toList());
@@ -181,5 +200,37 @@ public class AbsenceController {
     @GetMapping("/utilisateur/{id}")
     public List<AbsenceDTO> getAbsencesByUtilisateurId(@PathVariable int id) {
         return absenceService.getAbsencesByUtilisateurId(id);
-    }	
+    }
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/rtt-employeur/add")
+	public ResponseEntity<?> addRTTEmployeur(@RequestBody Absence absence) {
+	    LocalDate dateDebut = absence.getDateDebut().toInstant()
+	                                 .atZone(ZoneId.systemDefault())
+	                                 .toLocalDate();
+	    LocalDate dateFin = absence.getDateFin().toInstant()
+	                               .atZone(ZoneId.systemDefault())
+	                               .toLocalDate();
+
+	    // Calcul du nombre de jours ouvrés pour cette nouvelle absence
+	    long newAbsenceDays = absenceService.countWorkingDays(dateDebut, dateFin);
+
+	    // Récupération du total des jours RTT employeur déjà posés cette année
+	    int year = dateDebut.getYear();
+	    List<Absence> rttEmployeurAbsences = absenceService.getRTTEmployeurByYear(year);
+	    long totalExistingRttDays = rttEmployeurAbsences.stream()
+	        .mapToLong(a -> absenceService.countWorkingDays(
+	            a.getDateDebut().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+	            a.getDateFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+	        ))
+	        .sum();
+
+	    // Vérification du quota de 5 jours
+	    if (totalExistingRttDays + newAbsenceDays > 5) {
+	        return ResponseEntity.badRequest().body("Le nombre total de jours RTT employeur dépasse la limite annuelle de 5 jours.");
+	    }
+
+	    Absence newAbsence = absenceService.createAbsence(absence);
+	    return ResponseEntity.ok(newAbsence);
+	}
 }
